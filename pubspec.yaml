@@ -1,0 +1,69 @@
+name: puntorojo
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  lucide_icons: ^0.257.0
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.3
+  cloud_firestore: ^5.4.1
+  cupertino_icons: ^1.0.8
+  video_player: ^2.7.0
+  flutter_animate: ^4.1.1
+  youtube_player_flutter: ^9.1.1
+  rive: ^0.13.20
+  google_maps_flutter: ^2.2.5
+  font_awesome_flutter: ^10.4.0
+  url_launcher: ^6.1.10
+  flutter_pdfview: ^1.2.7
+  path_provider: ^2.0.15
+  syncfusion_flutter_pdfviewer: ^29.2.5
+  youtube_player_iframe: ^5.2.1
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/coopinga.png
+    - assets/images/puntorojo4.jpg
+    - assets/images/puntorojo2.jpg
+    - assets/images/puntorojo3.png
+    - assets/images/puntorojo.jpg
+    - assets/images/Placa para reel PR 001.jpg
+    - assets/images/Placa para reel PR 002.jpg
+    - assets/images/Placa para reel PR 003.jpg
+    - assets/images/Placa para reel PR 004.jpg
+    - assets/images/Placa para reel PR 005.jpg
+    - assets/images/Placa para reel PR 006.jpg
+    - assets/images/serviciopuntorojo.webp
+    - assets/images/01.jpg
+    - assets/images/02.jpg
+    - assets/images/03.jpg
+    - assets/images/04.jpg
+    - assets/images/CATA.png
+    - assets/images/PUNTOROJO.jpg
+    - assets/images/puntorojofilm.jpg
+    - assets/images/ofeliarojo2.png
+    - assets/images/filmpuntorojo.jpg
+    - assets/images/cajaforenseinga.jpg
+    - assets/images/festitrapinga.jpg
+    - assets/images/servicioingacortado.jpg
+
+
+
+
