@@ -156,8 +156,8 @@ class _NosotrosState extends State<Nosotros> with SingleTickerProviderStateMixin
               left: Random().nextDouble() * size.width,
               top: Random().nextDouble() * size.height,
               child: Container(
-                width: 5,
-                height: 5,
+                width: 2,
+                height: 2,
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.5),
                   shape: BoxShape.circle,
@@ -176,7 +176,7 @@ class _NosotrosState extends State<Nosotros> with SingleTickerProviderStateMixin
           // Contenido
           CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(child: SizedBox(height: isMobile ? 200 : 300)),
+              SliverToBoxAdapter(child: SizedBox(height: isMobile ? 100 : 50)),
 
               SliverToBoxAdapter(
                 child: Padding(
@@ -239,13 +239,13 @@ class _NosotrosState extends State<Nosotros> with SingleTickerProviderStateMixin
                           color: Colors.white,
                         ),
                       ).animate().fadeIn(delay: 1200.ms),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                         ),
                         child: const Text(
@@ -275,7 +275,7 @@ class _NosotrosState extends State<Nosotros> with SingleTickerProviderStateMixin
   Widget _buildTeamMemberCard(TeamMember member, int index, bool isMobile) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      elevation: 20,
+      elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Colors.black,
       child: Stack(
@@ -313,7 +313,7 @@ class _NosotrosState extends State<Nosotros> with SingleTickerProviderStateMixin
                   Text(member.role, style: TextStyle(fontSize: isMobile ? 16 : 18, color: member.accentColor)),
                   const SizedBox(height: 10),
                   Text(member.description, style: TextStyle(fontSize: isMobile ? 14 : 16, color: Colors.white70)),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Wrap(
                     spacing: 10,
                     children: [
@@ -350,12 +350,12 @@ class _NosotrosState extends State<Nosotros> with SingleTickerProviderStateMixin
       return Image.asset(
         member.imageAsset!,
         fit: BoxFit.cover,
-        height: 200,
+        height: 400,
       );
     } else if (member.pdfAsset != null) {
       return Container(
-        height: 500,
-        margin: const EdgeInsets.all(10),
+        height: 200,
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,

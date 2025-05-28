@@ -6,6 +6,7 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 class YoutubeVideoPlayerExample extends StatefulWidget {
   final String videoId;
   final double height;
+
   const YoutubeVideoPlayerExample({
     required this.videoId,
     this.height = 180,
@@ -13,7 +14,8 @@ class YoutubeVideoPlayerExample extends StatefulWidget {
   });
 
   @override
-  State<YoutubeVideoPlayerExample> createState() => _YoutubeVideoPlayerExampleState();
+  State<YoutubeVideoPlayerExample> createState() =>
+      _YoutubeVideoPlayerExampleState();
 }
 
 class _YoutubeVideoPlayerExampleState extends State<YoutubeVideoPlayerExample> {
@@ -22,14 +24,22 @@ class _YoutubeVideoPlayerExampleState extends State<YoutubeVideoPlayerExample> {
   @override
   void initState() {
     super.initState();
-    _controller =  YoutubePlayerController.fromVideoId(
-      videoId: widget.videoId,
-      autoPlay: false,
+    _controller = YoutubePlayerController(
       params: const YoutubePlayerParams(
-        showFullscreenButton: true,
         showControls: true,
-        mute: false,),
+        showFullscreenButton: true,
+
+      ),
     );
+    _controller.loadVideoById(videoId: widget.videoId);
+  }
+
+  @override
+  void didUpdateWidget(covariant YoutubeVideoPlayerExample oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.videoId != widget.videoId) {
+      _controller.loadVideoById(videoId: widget.videoId);
+    }
   }
 
   @override
@@ -42,9 +52,9 @@ class _YoutubeVideoPlayerExampleState extends State<YoutubeVideoPlayerExample> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
-      child: YoutubePlayerScaffold(
+      child: YoutubePlayer(
         controller: _controller,
-        builder: (context, player) => player,
+        aspectRatio: 16 / 9,
       ),
     );
   }
@@ -70,7 +80,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
   bool _isValidYoutubeUrl(String url) {
     final uri = Uri.tryParse(url);
     if (uri == null) return false;
-    final isYoutube = uri.host.contains('youtube.com') && uri.queryParameters.containsKey('v');
+    final isYoutube =
+        uri.host.contains('youtube.com') && uri.queryParameters.containsKey('v');
     final isShort = uri.host.contains('youtu.be') && uri.pathSegments.isNotEmpty;
     return isYoutube || isShort;
   }
@@ -178,10 +189,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Confirmar eliminación'),
-        content: const Text('¿Seguro quieres eliminar esta publicación? Esta acción no se puede deshacer.'),
+        content: const Text(
+            '¿Seguro quieres eliminar esta publicación? Esta acción no se puede deshacer.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancelar')),
-          ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text('Eliminar')),
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancelar')),
+          ElevatedButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Eliminar')),
         ],
       ),
     );
@@ -208,10 +224,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
         content: SingleChildScrollView(
           child: Column(
             children: [
-              TextField(controller: _titleController, decoration: const InputDecoration(labelText: 'Título')),
-              TextField(controller: _descriptionController, decoration: const InputDecoration(labelText: 'Descripción')),
-              TextField(controller: _textController, decoration: const InputDecoration(labelText: 'Texto adicional')),
-              TextField(controller: _urlController, decoration: const InputDecoration(labelText: 'URL de YouTube')),
+              TextField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(labelText: 'Título')),
+              TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Descripción')),
+              TextField(
+                  controller: _textController,
+                  decoration: const InputDecoration(labelText: 'Texto adicional')),
+              TextField(
+                  controller: _urlController,
+                  decoration: const InputDecoration(labelText: 'URL de YouTube')),
             ],
           ),
         ),
@@ -230,7 +254,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 'timestamp': Timestamp.now(),
               };
 
-              await FirebaseFirestore.instance.collection('videos').doc(docId).update(updatedData);
+              await FirebaseFirestore.instance
+                  .collection('videos')
+                  .doc(docId)
+                  .update(updatedData);
               Navigator.pop(context);
 
               setState(() {
@@ -277,13 +304,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
         padding: const EdgeInsets.all(16),
         child: Scrollbar(
           child: ListView(
-            shrinkWrap: true,
             children: [
-              TextField(controller: _titleController, decoration: const InputDecoration(labelText: 'Título')),
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(labelText: 'Título'),
+              ),
               const SizedBox(height: 12),
-              TextField(controller: _descriptionController, decoration: const InputDecoration(labelText: 'Descripción')),
+              TextField(
+                controller: _descriptionController,
+                decoration: const InputDecoration(labelText: 'Descripción'),
+              ),
               const SizedBox(height: 12),
-              TextField(controller: _textController, decoration: const InputDecoration(labelText: 'Texto adicional')),
+              TextField(
+                controller: _textController,
+                decoration: const InputDecoration(labelText: 'Texto adicional'),
+              ),
               const SizedBox(height: 12),
               TextField(
                 controller: _urlController,
@@ -301,36 +336,30 @@ class _AdminDashboardState extends State<AdminDashboard> {
               if (_videoId != null)
                 YoutubeVideoPlayerExample(
                   videoId: _videoId!,
-                  height: 160,
+                  height: 180,
                 ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submit,
-                child: const Text('Subir Video'),
+                child: const Text('Subir video'),
               ),
-              if (message.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text(
-                    message,
-                    style: const TextStyle(color: Colors.green, fontSize: 16),
-                  ),
-                ),
               const SizedBox(height: 30),
-              const Divider(),
-              const SizedBox(height: 10),
-              const Text('📋 Publicaciones existentes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
               StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('videos').orderBy('timestamp', descending: true).snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection('videos')
+                    .orderBy('timestamp', descending: true)
+                    .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  if (snapshot.hasError) {
+                    return const Text('Error al cargar videos');
+                  }
+                  if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  final docs = snapshot.data?.docs ?? [];
-
-                  if (docs.isEmpty) return const Text('No hay publicaciones aún.');
-
+                  final docs = snapshot.data!.docs;
+                  if (docs.isEmpty) {
+                    return const Text('No hay videos publicados');
+                  }
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -338,35 +367,40 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     itemBuilder: (context, index) {
                       final doc = docs[index];
                       final data = doc.data() as Map<String, dynamic>;
-                      final videoId = _extractYoutubeId(data['url'] ?? '') ?? '';
+                      final videoUrl = data['url'] as String? ?? '';
+                      final videoId = _extractYoutubeId(videoUrl);
 
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 8),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Column(
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.all(8),
+                          title: Text(data['titulo'] ?? ''),
+                          subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(data['titulo'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(height: 6),
                               Text(data['descripcion'] ?? ''),
-                              const SizedBox(height: 6),
-                              YoutubeVideoPlayerExample(videoId: videoId, height: 140),
-                              const SizedBox(height: 6),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () => _editarPublicacion(doc.id, data),
-                                    tooltip: 'Editar',
+                              if (videoId != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: YoutubeVideoPlayerExample(
+                                    videoId: videoId,
+                                    height: 160,
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () => _eliminarPublicacion(doc.id),
-                                    tooltip: 'Eliminar',
-                                  ),
-                                ],
+                                ),
+                            ],
+                          ),
+                          trailing: Wrap(
+                            spacing: 8,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () => _editarPublicacion(doc.id, data),
+                                tooltip: 'Editar',
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => _eliminarPublicacion(doc.id),
+                                tooltip: 'Eliminar',
                               ),
                             ],
                           ),
@@ -376,6 +410,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   );
                 },
               ),
+              const SizedBox(height: 20),
+              if (message.isNotEmpty)
+                Center(
+                  child: Text(
+                    message,
+                    style: const TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.bold),
+                  ),
+                ),
             ],
           ),
         ),
