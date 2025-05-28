@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:puntorojo/puntorojo/lib/main.dart';
+import 'package:puntorojo/main.dart';
 
 class QuienesSomos extends StatelessWidget {
   const QuienesSomos({super.key});

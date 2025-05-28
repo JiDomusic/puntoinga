@@ -13,9 +13,9 @@ import 'package:puntorojo/seccion/nosotros.dart';
 import 'package:puntorojo/seccion/productos_y_servicios.dart';
 import 'package:puntorojo/seccion/servicios.dart';
 
-import '../../admin_dashboard.dart';
-import '../../login_screen.dart';
-import '../../seccion/videos.dart' as videos_page;
+import 'admin_dashboard.dart';
+import 'login_screen.dart';
+import 'seccion/videos.dart' as videos_page;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
