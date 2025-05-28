@@ -54,8 +54,8 @@ class _VideosState extends State<Videos> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    // Para mantener aspecto 16:9, calculamos altura en función del ancho
-    final videoWidth = screenWidth * 0.9; // 90% del ancho pantalla
+
+    final videoWidth = screenWidth * 0.9; //
     final videoHeight = videoWidth * 9 / 16;
 
     return Scaffold(
