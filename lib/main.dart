@@ -8,7 +8,7 @@ import 'package:puntorojo/seccion/contacto.dart';
 import 'package:puntorojo/seccion/contacto_Inga.dart';
 import 'package:puntorojo/seccion/cooperativa.dart';
 import 'package:puntorojo/seccion/fotografia.dart';
-import 'package:puntorojo/seccion/historia.dart';
+import 'package:puntorojo/seccion/servicios especiales.dart';
 import 'package:puntorojo/seccion/nosotros.dart';
 import 'package:puntorojo/seccion/productos_y_servicios.dart';
 import 'package:puntorojo/seccion/servicios.dart';
@@ -131,8 +131,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         case 'Nosotros':
           screen = const Nosotros();
           break;
-        case 'Historia':
-          screen = const Historia();
+        case 'Servicios especiales':
+          screen = ServiciosEspeciales();
           break;
         case 'Contacto':
           screen = const contacto();
@@ -245,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             imagePath: 'assets/images/puntorojo2.jpg',
                             buttons: [
                               {'label': 'Nosotros'},
-                              {'label': 'Historia'},
+                              {'label': 'ServiciosESpeciales'},
                               {'label': 'Contacto'},
                               {'label': 'Audiovisuales'},
                               {'label': 'Fotografía'},
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   imagePath: 'assets/images/puntorojo2.jpg',
                                   buttons: [
                                     {'label': 'Nosotros'},
-                                    {'label': 'Historia'},
+                                    {'label': 'ServiciosESpeciales'},
                                     {'label': 'Contacto'},
                                     {'label': 'Audiovisuales'},
                                     {'label': 'Fotografía'},

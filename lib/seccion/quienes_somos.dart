@@ -9,7 +9,7 @@ class QuienesSomos extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color rojo = const Color(0xFFB71C1C);
     final Color amarillo = const Color(0xFFFFD54F);
-    final Color verde = const Color(0xFF2E7D32);
+    final Color green = const Color(0xFF2E7D32);
     final Color negro = Colors.black;
 
     return Scaffold(

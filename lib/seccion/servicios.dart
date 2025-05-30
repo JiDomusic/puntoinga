@@ -5,111 +5,58 @@ class Servicios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bordorColor = const Color(0xFF2C001E); // bordo
-    final redAccent = Colors.redAccent;
+    final bordoColor = const Color(0xFF4A1A28); // tono bordo elegante
+    final goldAccent = const Color(0xFFFFC107); // dorado
+    final backgroundColor = const Color(0xFF1C1C1C); // gris oscuro
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: bordorColor,
+        backgroundColor: bordoColor,
         title: const Text(
-          'SERVICIOS',
-          style: TextStyle(color: Colors.amber),
+          'Nuestros Servicios',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            letterSpacing: 1.2,
+          ),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Contenedor de texto principal
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: bordorColor, width: 3),
-                boxShadow: [
-                  BoxShadow(
-                    color: bordorColor.withOpacity(0.5),
-                    blurRadius: 8,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-              ),
-              child: const Text(
-                'COMUNICACIÓN VISUAL'
-                    ' Identidad'
-                    '• Diseño, ajuste o rediseño de marcas'
-                    '• Papelería.'
-                    '• Media kit',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Colors.red,
-                  fontWeight: FontWeight.w600,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ),
+            _buildMainServiceCard(bordoColor, goldAccent),
             const SizedBox(height: 20),
-
             _buildImageTextSection(
-              bordorColor,
-              redAccent,
+              bordoColor,
+              goldAccent,
               'Editoriales',
-              """• Revistas.
-• Libros.
-• Manuales.
-• Catálogos.
-• Folletos, volantes.""",
+              """• Revistas y libros con identidad.\n• Manuales y catálogos visuales.\n• Folletos que cuentan historias.""",
               'assets/images/servicioingacortado.jpg',
             ),
-            const SizedBox(height: 20),
-
             _buildImageTextSection(
-              bordorColor,
-              redAccent,
-              'Comunicación visual',
-              """• Piezas para redes sociales.
-• Banner web.
-• Avisos publicitarios.
-• Cartelería impresa.""",
+              bordoColor,
+              goldAccent,
+              'Comunicación Visual',
+              """• Diseño para redes sociales.\n• Publicidad online y gráfica.\n• Cartelería para tu organización.""",
               'assets/images/cajaforenseinga.jpg',
             ),
-            const SizedBox(height: 8),
-
             _buildImageTextSection(
-              bordorColor,
-              redAccent,
-              'MULTIMEDIA',
-              """• Sitios web.
-• Banner web.
-• Avisos publicitarios.
-• Cartelería impresa 
-• Institucionales.
-• Plataformas de contenidos.
-• Tiendas virtualesRegistro audiovisual
-
-• REGISTRO AUDIOVISUAL 
-  Registro audiovisual en eventos sociales, artísticos, institucionales, educativos, etc.
-• Coberturas fotográficas y audiovisuales
-• Proyección con pantalla y sonido para pequeños eventos.
-• Contenidos multimedia y transmedia.""",
+              bordoColor,
+              goldAccent,
+              'Multimedia y Audiovisual',
+              """• Sitios web dinámicos.\n• Tiendas virtuales.\n• Cobertura audiovisual de eventos.\n• Contenidos multimedia y transmedia.""",
               'assets/images/festitrapinga.jpg',
             ),
-            const SizedBox(height: 20),
-
             _buildImageTextSection(
-              bordorColor,
-              redAccent,
-              'PRENSA Y COMUNICACIÓN INSTITUCIONAL',
-              """• Sitios web.
-• Banner web.
-• Avisos publicitarios.
-• Cartelería impresa - • Institucionales.
-• Plataformas de contenidos.
-• Tiendas virtuales.""",
+              bordoColor,
+              goldAccent,
+              'Prensa e Institucional',
+              """• Gestión de comunicación interna y externa.\n• Diseño de campañas.\n• Presencia digital e institucional.""",
               'assets/images/CATA.png',
             ),
           ],
@@ -118,10 +65,53 @@ class Servicios extends StatelessWidget {
     );
   }
 
-  // Siempre imagen a la izquierda, texto a la derecha
+  Widget _buildMainServiceCard(Color bordo, Color gold) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: bordo, width: 3),
+        boxShadow: [
+          BoxShadow(
+            color: bordo.withOpacity(0.4),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: const [
+          Text(
+            'COMUNICACIÓN VISUAL',
+            style: TextStyle(
+              fontSize: 26,
+              color: Color(0xFF4A1A28),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Creamos identidad visual cooperativa con propósito:',
+            style: TextStyle(fontSize: 18, color: Colors.black87),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 10),
+          Text(
+            '• Diseño o rediseño de marcas\n'
+                '• Papelería institucional\n'
+                '• Kits de comunicación para redes y medios',
+            style: TextStyle(fontSize: 16, color: Colors.black54),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildImageTextSection(
-      Color bordorColor,
-      Color redAccent,
+      Color bordoColor,
+      Color goldAccent,
       String title,
       String description,
       String imagePath,
@@ -130,21 +120,20 @@ class Servicios extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.black,
-        border: Border.all(color: bordorColor, width: 3),
+        color: const Color(0xFF2A2A2A),
+        border: Border.all(color: bordoColor, width: 2),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: bordorColor.withOpacity(0.5),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+            color: bordoColor.withOpacity(0.3),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Imagen a la izquierda
+          // Imagen
           Expanded(
             flex: 3,
             child: ClipRRect(
@@ -160,28 +149,29 @@ class Servicios extends StatelessWidget {
           ),
           const SizedBox(width: 12),
 
-          // Texto a la derecha
+          // Texto
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Padding(
-              padding: const EdgeInsets.only(left: 12),
+              padding: const EdgeInsets.only(left: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    title.toUpperCase(),
                     style: TextStyle(
-                      color: redAccent,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      color: goldAccent,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.1,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 8),
                   Text(
                     description,
                     style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+                      fontSize: 15,
+                      color: Colors.white70,
                     ),
                     textAlign: TextAlign.justify,
                   ),

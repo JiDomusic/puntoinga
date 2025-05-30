@@ -7,42 +7,42 @@ class Fotografia extends StatelessWidget {
     {
       'image': 'assets/images/Placa para reel PR 001.jpg',
       'title': 'Evento Cultural',
-      'description': 'Celebramos la diversidad con una noche de música y danza.'
+      'description': 'dia de coso.'
     },
     {
       'image': 'assets/images/Placa para reel PR 002.jpg',
       'title': 'Arte Urbano',
-      'description': 'Muralistas locales transformaron nuestro barrio con color.'
+      'description': 'cubriendo.'
     },
     {
-      'image': 'assets/images/ejemplo3.jpg',
+      'image': 'assets/images/CATA.png',
       'title': 'Taller Comunitario',
-      'description': 'Jornada de aprendizaje en oficios creativos para jóvenes.'
+      'description': 'Jornada ..'
     },
     {
-      'image': 'assets/images/ejemplo4.jpg',
+      'image': 'assets/images/PUNTOROJO.jpg',
       'title': 'Noche de Cine',
-      'description': 'Cine comunitario al aire libre, bajo las estrellas.'
+      'description': 'Cine comunitario kfsjskdfsjd'
     },
     {
-      'image': 'assets/images/ejemplo5.jpg',
+      'image': 'assets/images/filmpuntorojo.jpg',
       'title': 'Feria Local',
-      'description': 'Expositores locales compartieron arte, comida y cultura.'
+      'description': 'Expositores locales sakdjhsakd '
     },
     {
-      'image': 'assets/images/ejemplo6.jpg',
+      'image': 'assets/images/03.jpg',
       'title': 'Música en Vivo',
-      'description': 'Bandas emergentes llenaron la plaza de energía y ritmo.'
+      'description': 'Bandas emergentes askjdhsad  .'
     },
     {
       'image': 'assets/images/puntorojo2.jpg',
-      'title': 'Pintura Colectiva',
-      'description': 'Una gran obra colaborativa hecha por vecinos del barrio.'
+      'title': ' evento  de  sjkasf  d',
+      'description': 'U askjhaskd  sajkdhsa'
     },
     {
-      'image': 'assets/images/ejemplo8.jpg',
-      'title': 'Festival de Sabores',
-      'description': 'Comida de distintas culturas servida por la comunidad.'
+      'image': 'assets/images/04.jpg',
+      'title': 'sdflsdjlf  ',
+      'description': 'Cdsakdhs  skdjfhs'
     },
   ];
 
@@ -67,7 +67,7 @@ class Fotografia extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Momentos Especiales',
+                      'eventos cubiertos por punto rojo',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -77,7 +77,7 @@ class Fotografia extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     const Text(
-                      'los mejores momentos de nuestras actividades comunitarias.',
+                      'los  sasrasrasahs.',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white70,
