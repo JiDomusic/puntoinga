@@ -9,10 +9,8 @@ import 'package:puntorojo/seccion/contacto_Inga.dart';
 import 'package:puntorojo/seccion/cooperativa.dart';
 import 'package:puntorojo/seccion/fotografia.dart';
 import 'package:puntorojo/seccion/servicios especiales.dart';
-import 'package:puntorojo/seccion/nosotros.dart';
-import 'package:puntorojo/seccion/productos_y_servicios.dart';
-import 'package:puntorojo/seccion/servicios.dart';
 
+import 'package:puntorojo/seccion/productos_y_servicios.dart';
 import 'admin_dashboard.dart';
 import 'login_screen.dart';
 import 'seccion/videos.dart' as videos_page;
@@ -33,11 +31,15 @@ Future<void> main() async {
     ),
   );
 
-  runApp(const MyApp());
+  // Cambiá aquí la pantalla inicial según lo que quieras probar:
+  Widget initialScreen = const HomeScreen(); // <-- Aquí puede ser otra pantalla, ejemplo: const Nosotros()
+
+  runApp(MyApp(initialScreen: initialScreen));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget initialScreen;
+  const MyApp({super.key, required this.initialScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomeScreen(),
+      home: initialScreen,
     );
   }
 }
@@ -128,8 +130,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       screen = const AdminDashboard();
     } else {
       switch (title) {
-        case 'Nosotros':
-          screen = const Nosotros();
+        case 'Sobre nosotros':
+          screen = const SobreNostros();
           break;
         case 'Servicios especiales':
           screen = ServiciosEspeciales();
@@ -153,9 +155,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         case 'Contactos':
           screen = const contacto_inga();
           break;
-        case 'Servicios':
-          screen = const Servicios();
-          break;
+
         case 'productos y servicios':
           screen = const ProductosYServicios();
           break;
@@ -245,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             imagePath: 'assets/images/puntorojo2.jpg',
                             buttons: [
                               {'label': 'Nosotros'},
-                              {'label': 'ServiciosESpeciales'},
+                              {'label': 'Servicios Especiales'},
                               {'label': 'Contacto'},
                               {'label': 'Audiovisuales'},
                               {'label': 'Fotografía'},
@@ -279,9 +279,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               {'label': 'Cooperativa'},
                               {'label': 'Quienes Somos'},
                               {'label': 'Contactos'},
-                              {'label': 'Servicios'},
                               {'label': 'productos y servicios'},
-
                             ],
                           ),
                         ),
@@ -298,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: Container(
                                 decoration: const BoxDecoration(
                                   border: Border(
-                                    right: BorderSide(color: Colors.grey, width: 2),
+                                    right: BorderSide(color: Colors.redAccent, width: 2),
                                   ),
                                 ),
                                 child: buildContent(
@@ -306,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   imagePath: 'assets/images/puntorojo2.jpg',
                                   buttons: [
                                     {'label': 'Nosotros'},
-                                    {'label': 'ServiciosESpeciales'},
+                                    {'label': 'Servicios Especiales'},
                                     {'label': 'Contacto'},
                                     {'label': 'Audiovisuales'},
                                     {'label': 'Fotografía'},
@@ -328,9 +326,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   {'label': 'Cooperativa'},
                                   {'label': 'Quienes Somos'},
                                   {'label': 'Contactos'},
-                                  {'label': 'Servicios'},
                                   {'label': 'productos y servicios'},
-
                                 ],
                               ),
                             ),
