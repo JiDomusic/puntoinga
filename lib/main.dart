@@ -3,6 +3,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:puntorojo/seccion/contacto_Inga.dart';
+import 'package:puntorojo/seccion/galeria.dart';
 import 'package:puntorojo/seccion/quienes_somos.dart';
 import 'package:puntorojo/seccion/servicios_especiales.dart';
 import 'package:puntorojo/seccion/sobre_nosotros.dart';
@@ -145,6 +146,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         case 'quienes somos':
           screen = const quienessomos();
           break;
+        case 'galería':
+          screen = galeria();
+          break;
         case 'contactos':
           screen = const contacto_inga();
           break;
@@ -273,6 +277,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               {'label': 'quienes somos'},
                               {'label': 'contactos'},
                               {'label': 'productos y servicios'},
+                              {'label': 'galería'},
                             ],
                           ),
                         ),
@@ -320,6 +325,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   {'label': 'quienes somos'},
                                   {'label': 'contactos'},
                                   {'label': 'productos y servicios'},
+                                  {'label': 'galería'},
                                 ],
                               ),
                             ),
