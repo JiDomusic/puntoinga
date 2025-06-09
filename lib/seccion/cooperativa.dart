@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart'; // ✨ Requiere paquete flutter_animate
 import 'quienes_somos.dart';
 
-class Cooperativa extends StatefulWidget {
-  const Cooperativa({super.key});
+class cooperativa extends StatefulWidget {
+  const cooperativa({super.key});
 
   @override
-  State<Cooperativa> createState() => _CooperativaState();
+  State<cooperativa> createState() => _CooperativaState();
 }
 
-class _CooperativaState extends State<Cooperativa>
+class _CooperativaState extends State<cooperativa>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -127,7 +127,7 @@ class _CooperativaState extends State<Cooperativa>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const QuienesSomos(),
+                          builder: (_) => const quienessomos(),
                         ),
                       );
                     },

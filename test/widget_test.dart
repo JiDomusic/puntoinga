@@ -5,18 +5,12 @@ import 'package:puntorojo/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(initialScreen: HomeScreen()));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Aquí deberías ajustar las expectativas a lo que realmente muestra tu HomeScreen
+    // Por ejemplo, si tienes un texto 'Nosotros' en la pantalla:
+    expect(find.text('Nosotros'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Si tienes un contador, tendrías que adaptar el test a esa funcionalidad.
   });
 }

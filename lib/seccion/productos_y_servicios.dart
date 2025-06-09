@@ -4,20 +4,37 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
-class ProductosYServicios extends StatefulWidget {
-  const ProductosYServicios({super.key});
+// Asegúrate de tener una pantalla llamada CooperativaPage para navegar hacia ella.
+import 'cooperativa.dart'; // Asegúrate de tener este archivo y clase.
+
+class productosyservicios extends StatefulWidget {
+  const productosyservicios({super.key});
 
   @override
-  State<ProductosYServicios> createState() => _ProductosYServiciosState();
+  State<productosyservicios> createState() => _ProductosYServiciosState();
 }
 
-class _ProductosYServiciosState extends State<ProductosYServicios> {
+class _ProductosYServiciosState extends State<productosyservicios> {
   String? localPDFPath;
+  final ScrollController _scrollController = ScrollController();
+
+  final List<String> carouselImages = [
+    'assets/images/servicioingacortado.jpg',
+    'assets/images/logostitulosinga.png',
+    'assets/images/festitrapinga.jpg',
+  ];
 
   @override
   void initState() {
     super.initState();
     loadPDF();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startAutoScroll());
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   Future<void> loadPDF() async {
@@ -40,94 +57,155 @@ class _ProductosYServiciosState extends State<ProductosYServicios> {
     );
   }
 
-  Widget buildSection({
-    required String title,
-    required String content,
-    required bool leftAligned,
-    required Color titleColor,
-  }) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isWide = constraints.maxWidth > 600;
-        return Align(
-          alignment: leftAligned ? Alignment.centerLeft : Alignment.centerRight,
-          child: Container(
-            width: isWide ? constraints.maxWidth * 0.9 : double.infinity,
-            margin: const EdgeInsets.symmetric(vertical: 16),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.grey[850],
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                )
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment:
-              leftAligned ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: titleColor,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  content,
-                  textAlign: leftAligned ? TextAlign.left : TextAlign.right,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 20,
-                    height: 1.6,
-                  ),
-                ),
-              ],
-            ),
+  void _startAutoScroll() async {
+    const duration = Duration(milliseconds: 30);
+    const step = 1.0;
+
+    while (mounted) {
+      if (!_scrollController.hasClients) {
+        await Future.delayed(duration);
+        continue;
+      }
+
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final currentScroll = _scrollController.offset;
+      double nextScroll = currentScroll + step;
+
+      if (nextScroll >= maxScroll) {
+        await _scrollController.animateTo(0,
+            duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+      } else {
+        _scrollController.jumpTo(nextScroll);
+      }
+
+      await Future.delayed(duration);
+    }
+  }
+
+  Widget buildCarouselImage(String assetPath, double width, double height) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FullscreenImagePage(imagePath: assetPath),
           ),
         );
       },
-    );
-  }
-
-  Widget buildPDFPreview() {
-    return GestureDetector(
-      onTap: openPDFViewer,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 32),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.redAccent, width: 2),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.redAccent, width: 1),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.5),
-              blurRadius: 10,
-              offset: const Offset(0, 6),
-            )
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(16),
           child: Image.asset(
-            'assets/images/03.jpg',
+            assetPath,
             fit: BoxFit.cover,
-            height: 280,
-            width: double.infinity,
+            width: width,
+            height: height,
           ),
         ),
       ),
     );
   }
 
+  Widget buildCarousel(double width, double height) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ListView.builder(
+        controller: _scrollController,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: carouselImages.length * 1000,
+        itemBuilder: (context, index) {
+          final itemIndex = index % carouselImages.length;
+          return buildCarouselImage(carouselImages[itemIndex], width, height / 3 - 24);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    double carouselWidth = screenWidth > 1000 ? 350 : 200;
+    double carouselHeight = screenHeight * 0.9;
+
+    double imageWidth = screenWidth - carouselWidth - 80;
+    double imageHeight = carouselHeight;
+
+    Widget buildLeftContent() {
+      return Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => FullscreenImagePage(
+                    imagePath: 'assets/images/serviciopuntorojo.webp',
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              width: imageWidth,
+              height: imageHeight - 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.redAccent, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 10,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'assets/images/serviciopuntorojo.webp',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const cooperativa()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red[800],
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: const Text(
+              'Ver más',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -135,43 +213,21 @@ class _ProductosYServiciosState extends State<ProductosYServicios> {
         backgroundColor: Colors.red[900],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-        child: Column(
+        padding: const EdgeInsets.all(16),
+        child: screenWidth > 800
+            ? Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSection(
-              title: 'PRODUCTOS',
-              content: '''
-Este servicio permite registrar actividades de forma profesional con múltiples cámaras.
-
-• Transmisión en vivo profesional (multicámara, Zoom, redes sociales simultáneas).
-• Adaptado a los equipos del cliente con nuestra producción creativa.
-• Diseño gráfico, asesoramiento técnico y guiones incluidos.
-Ideal para congresos, diplomaturas, cursos, eventos institucionales y deportivos.
-              ''',
-              leftAligned: true,
-              titleColor: Colors.redAccent,
-            ),
-            buildSection(
-              title: 'SERVICIOS',
-              content: '''
-Tutoriales audiovisuales breves y creativos diseñados para redes sociales.
-
-• Para explicar técnicas, saberes o contar experiencias con impacto visual.
-• Incluye guión, rodaje, edición y adaptación a cada plataforma.
-• Pensado para personas, colectivos u organizaciones con contenido que destacar.
-              ''',
-              leftAligned: false,
-              titleColor: Colors.amberAccent,
-            ),
-            buildPDFPreview(),
-            const Text(
-              'Toca la imagen para ver el catálogo en PDF',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 14,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
+            Expanded(child: buildLeftContent()),
+            const SizedBox(width: 24),
+            buildCarousel(carouselWidth, carouselHeight),
+          ],
+        )
+            : Column(
+          children: [
+            buildLeftContent(),
+            const SizedBox(height: 24),
+            buildCarousel(screenWidth * 0.8, screenHeight * 0.3),
           ],
         ),
       ),
@@ -195,6 +251,28 @@ class PDFViewerPage extends StatelessWidget {
         pageSnap: true,
         enableSwipe: true,
         swipeHorizontal: false,
+      ),
+    );
+  }
+}
+
+class FullscreenImagePage extends StatelessWidget {
+  final String imagePath;
+
+  const FullscreenImagePage({super.key, required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.red[900],
+        title: const Text('Imagen'),
+      ),
+      body: Center(
+        child: InteractiveViewer(
+          child: Image.asset(imagePath, fit: BoxFit.contain),
+        ),
       ),
     );
   }

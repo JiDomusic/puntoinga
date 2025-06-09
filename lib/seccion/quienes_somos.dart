@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:puntorojo/main.dart';
 
-class QuienesSomos extends StatelessWidget {
-  const QuienesSomos({super.key});
+class quienessomos extends StatelessWidget {
+  const quienessomos({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,11 @@ class QuienesSomos extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Nuestros Valores',
+                      """Somos una empresa cooperativa dedicada a brindar servicios y productos culturales. El objeto de la cooperativa incluye la producción de medios alternativos de comunicación democrática y solidaria; la producción y difusión de actividades culturales y artísticas; el fomento del espíritu de solidaridad y ayuda mutua entre los asociados y asociadas con el fin de crear una conciencia cooperativa. 
+                Interpretamos las necesidades de nuestros clientes para construir un mensaje que se acerque a la esencia de lo que necesitan expresar y difundir a la hora de interpelar a la sociedad con sus acciones.
+                  Más que comunicar, resolvemos un problema de comunicación, al apuntalar en el plano audiovisual -técnica y lenguaje mediante- a reforzar la labor comunitaria e institucional. Nuestra capacidad creativa, va más allá de un simple registro o trabajo técnico, ya que se sustenta en la relación consustancial con las problemáticas de nuestros clientes.
+                Este valor nos ratifica el rumbo elegido de trabajar con la institucionalidad popular y comunitaria, ya que podemos “traducir” al lenguaje audiovisual sus necesidades comunicacionales.
+                """,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

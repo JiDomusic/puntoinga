@@ -9,14 +9,47 @@ class audiovisuales extends StatefulWidget {
 }
 
 class _audiovisualesState extends State<audiovisuales> {
-  final PageController _pageController = PageController(viewportFraction: 0.85);
-  final List<String> imagePaths = [
-    'assets/images/Placa para reel PR 001.jpg',
-    'assets/images/Placa para reel PR 002.jpg',
-    'assets/images/Placa para reel PR 003.jpg',
-    'assets/images/Placa para reel PR 004.jpg',
-    'assets/images/Placa para reel PR 005.jpg',
-    'assets/images/Placa para reel PR 006.jpg',
+  final PageController _pageController = PageController(viewportFraction: 1.0);
+  final List<Map<String, String>> imageData = [
+    {
+      'image': 'assets/images/Placa para reel PR 001.jpg',
+      'title': 'STREAMING PROFESIONAL MULTICÁMARA',
+      'description': ''
+    },
+    {
+      'image': 'assets/images/Placa para reel PR 002.jpg',
+      'title': 'SERVICIO DE PRENSA Y COMUNICACIÓN INSTITUCIONAL',
+      'description': ''
+    },
+    {
+      'image': 'assets/images/Placa para reel PR 003.jpg',
+      'title': 'TUTORIALES AUDIOVISUALES PARA REDES SOCIALES',
+      'description': ''
+    },
+    {
+      'image': 'assets/images/Placa para reel PR 004.jpg',
+      'title': 'Comunidad',
+      'description': 'Cultura que se comparte y se vive.'
+    },
+    {
+      'image': 'assets/images/Placa para reel PR 005.jpg',
+      'title': 'Innovación',
+      'description': 'Creatividad y tecnología en acción.'
+    },
+    {
+      'image': 'assets/images/Placa para reel PR 006.jpg',
+      'title': 'Pasión Audiovisual',
+      'description': 'Cada cuadro cuenta una historia.'
+    },
+  ];
+
+  final List<String> galleryImages = [
+    'assets/images/puntorojo0.jpg',
+    'assets/images/dillon.jpg',
+    'assets/images/INGA8.jpg',
+    'assets/images/audiovisual.jpg',
+    'assets/images/CATA.png',
+    'assets/images/ofeliarojo2.png',
   ];
 
   int currentIndex = 0;
@@ -31,7 +64,7 @@ class _audiovisualesState extends State<audiovisuales> {
   void _startAutoScroll() {
     _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
       if (_pageController.hasClients) {
-        int nextPage = (currentIndex + 1) % imagePaths.length;
+        int nextPage = (currentIndex + 1) % imageData.length;
         _pageController.animateToPage(
           nextPage,
           duration: const Duration(milliseconds: 500),
@@ -48,14 +81,31 @@ class _audiovisualesState extends State<audiovisuales> {
     super.dispose();
   }
 
+  void _navigateToServiciosEspeciales() {
+    Navigator.pushNamed(context, '/servicioespeciales');
+  }
+
+  void _showImageFullscreen(String imagePath) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => FullscreenImagePage(imagePath: imagePath),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final double carouselWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth;
+    final double galleryWidth = screenWidth > 1200 ? screenWidth * 0.30 : screenWidth;
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF2C001E),
+        backgroundColor: const Color(0xFFB80821),
         title: const Text(
           'Nuestro Equipo Audiovisual',
           style: TextStyle(color: Colors.amber),
@@ -63,71 +113,233 @@ class _audiovisualesState extends State<audiovisuales> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Column(
+        child: screenWidth > 1200
+            ? Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                'Conectando imágenes con pasión',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white70,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(height: 24),
             SizedBox(
-              height: screenHeight * 0.76, // 🔥 Doble de tamaño
+              width: carouselWidth,
+              height: screenHeight * 0.90,
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: imagePaths.length,
+                itemCount: imageData.length,
                 onPageChanged: (index) {
                   setState(() => currentIndex = index);
                 },
                 itemBuilder: (context, index) {
+                  final item = imageData[index];
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    padding: const EdgeInsets.all(40.0),
                     child: Card(
                       elevation: 6,
-                      color: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Image.asset(
-                          imagePaths[index],
-                          fit: BoxFit.contain, // 👈 Evita recortes
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.asset(
+                              item['image']!,
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                            ),
+                          ),
+                          Container(
+                            color: Colors.black.withOpacity(0.8),
+                            padding: const EdgeInsets.all(80),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['title']!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 7),
+                                Text(
+                                  item['description']!,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: ElevatedButton(
+                                    onPressed: _navigateToServiciosEspeciales,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.redAccent,
+                                    ),
+                                    child: const Text('Ver más'),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   );
                 },
               ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(imagePaths.length, (index) {
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: currentIndex == index ? 16 : 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: currentIndex == index ? Colors.redAccent : Colors.grey,
-                    borderRadius: BorderRadius.circular(4),
+            SizedBox(
+              width: galleryWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(1),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: galleryImages.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 1,
                   ),
-                );
-              }),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => _showImageFullscreen(galleryImages[index]),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          galleryImages[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-            const SizedBox(height: 20),
           ],
+        )
+            : ListView(
+          children: [
+            SizedBox(
+              height: screenHeight * 0.8,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: imageData.length,
+                onPageChanged: (index) {
+                  setState(() => currentIndex = index);
+                },
+                itemBuilder: (context, index) {
+                  final item = imageData[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(120.0),
+                    child: Card(
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.asset(
+                              item['image']!,
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                            ),
+                          ),
+                          Container(
+                            color: Colors.black.withOpacity(0.8),
+                            padding: const EdgeInsets.all(12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['title']!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  item['description']!,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: ElevatedButton(
+                                    onPressed: _navigateToServiciosEspeciales,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.redAccent,
+                                    ),
+                                    child: const Text('Ver más'),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(100),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: galleryImages.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 50,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 1,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => _showImageFullscreen(galleryImages[index]),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        galleryImages[index],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FullscreenImagePage extends StatelessWidget {
+  final String imagePath;
+
+  const FullscreenImagePage({super.key, required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.red[900],
+        title: const Text('Imagen'),
+      ),
+      body: Center(
+        child: InteractiveViewer(
+          child: Image.asset(imagePath, fit: BoxFit.contain),
         ),
       ),
     );

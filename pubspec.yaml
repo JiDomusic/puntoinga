@@ -30,6 +30,7 @@ dependencies:
 
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,6 +64,14 @@ flutter:
     - assets/images/cajaforenseinga.jpg
     - assets/images/festitrapinga.jpg
     - assets/images/servicioingacortado.jpg
+    - assets/images/INGA7.jpg
+    - assets/images/INGA8.jpg
+    - assets/images/INGA9.JPG
+    - assets/images/logostitulosinga.png
+    - assets/images/puntorojo0.jpg
+    - assets/images/dillon.jpg
+    - assets/images/chicainga.jpg
+    - assets/images/audiovisual.jpg
 
 
 

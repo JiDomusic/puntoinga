@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:puntorojo/seccion/contacto_Inga.dart';
 import 'package:puntorojo/seccion/quienes_somos.dart';
+import 'package:puntorojo/seccion/servicios_especiales.dart';
+import 'package:puntorojo/seccion/sobre_nosotros.dart';
 import 'package:puntorojo/seccion/audiovisuales.dart';
 import 'package:puntorojo/seccion/contacto.dart';
-import 'package:puntorojo/seccion/contacto_Inga.dart';
 import 'package:puntorojo/seccion/cooperativa.dart';
-import 'package:puntorojo/seccion/fotografia.dart';
-import 'package:puntorojo/seccion/servicios especiales.dart';
-
 import 'package:puntorojo/seccion/productos_y_servicios.dart';
+
 import 'admin_dashboard.dart';
 import 'login_screen.dart';
 import 'seccion/videos.dart' as videos_page;
@@ -18,7 +18,6 @@ import 'seccion/videos.dart' as videos_page;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Nueva forma recomendada para usar Path URL strategy en Flutter web
   setUrlStrategy(PathUrlStrategy());
 
   await Firebase.initializeApp(
@@ -31,10 +30,7 @@ Future<void> main() async {
     ),
   );
 
-  // Cambiá aquí la pantalla inicial según lo que quieras probar:
-  Widget initialScreen = const HomeScreen(); // <-- Aquí puede ser otra pantalla, ejemplo: const Nosotros()
-
-  runApp(MyApp(initialScreen: initialScreen));
+  runApp(MyApp(initialScreen: const HomeScreen()));
 }
 
 class MyApp extends StatelessWidget {
@@ -130,47 +126,44 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       screen = const AdminDashboard();
     } else {
       switch (title) {
-        case 'Sobre nosotros':
-          screen = const SobreNostros();
+        case 'sobre nosotros':
+          screen = const sobrenosotros();
           break;
-        case 'Servicios especiales':
-          screen = ServiciosEspeciales();
+        case 'servicios especiales':
+          screen = const serviciosespeciales();
           break;
-        case 'Contacto':
+        case 'contacto':
           screen = const contacto();
           break;
-        case 'Audiovisuales':
+        case 'audiovisuales':
           screen = const audiovisuales();
           break;
-        case 'Fotografía':
-          screen = const Fotografia();
-          break;
 
-        case 'Cooperativa':
-          screen = const Cooperativa();
+        case 'cooperativa':
+          screen = const cooperativa();
           break;
-        case 'Quienes Somos':
-          screen = const QuienesSomos();
+        case 'quienes somos':
+          screen = const quienessomos();
           break;
-        case 'Contactos':
+        case 'contactos':
           screen = const contacto_inga();
           break;
-
         case 'productos y servicios':
-          screen = const ProductosYServicios();
+          screen = const productosyservicios();
           break;
-        case 'Videos':
-          screen = videos_page.Videos();
+        case 'videos':
+          screen = const videos_page.Videos();
           break;
         default:
-          screen = const Nosotros();
+          print('⚠️ Ruta no encontrada para "$title", mostrando Videos por defecto');
+          screen = const videos_page.Videos();
       }
-    }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => screen),
-    );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => screen),
+      );
+    }
   }
 
   Widget animatedButton(String label, VoidCallback onTap, {IconData? icon}) {
@@ -244,11 +237,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             title: 'Punto Rojo',
                             imagePath: 'assets/images/puntorojo2.jpg',
                             buttons: [
-                              {'label': 'Nosotros'},
-                              {'label': 'Servicios Especiales'},
-                              {'label': 'Contacto'},
-                              {'label': 'Audiovisuales'},
-                              {'label': 'Fotografía'},
+                              {'label': 'sobre nosotros'},
+                              {'label': 'servicios especiales'},
+                              {'label': 'contacto'},
+                              {'label': 'audiovisuales'},
+
                             ],
                           ),
                         ),
@@ -276,9 +269,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             title: 'Cooperativa Inga',
                             imagePath: 'assets/images/coopinga.png',
                             buttons: [
-                              {'label': 'Cooperativa'},
-                              {'label': 'Quienes Somos'},
-                              {'label': 'Contactos'},
+                              {'label': 'cooperativa'},
+                              {'label': 'quienes somos'},
+                              {'label': 'contactos'},
                               {'label': 'productos y servicios'},
                             ],
                           ),
@@ -303,11 +296,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   title: 'Punto Rojo',
                                   imagePath: 'assets/images/puntorojo2.jpg',
                                   buttons: [
-                                    {'label': 'Nosotros'},
-                                    {'label': 'Servicios Especiales'},
-                                    {'label': 'Contacto'},
-                                    {'label': 'Audiovisuales'},
-                                    {'label': 'Fotografía'},
+                                    {'label': 'sobre nosotros'},
+                                    {'label': 'servicios especiales'},
+                                    {'label': 'contacto'},
+                                    {'label': 'audiovisuales'},
+
                                   ],
                                 ),
                               ),
@@ -323,9 +316,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 title: 'Cooperativa Inga',
                                 imagePath: 'assets/images/coopinga.png',
                                 buttons: [
-                                  {'label': 'Cooperativa'},
-                                  {'label': 'Quienes Somos'},
-                                  {'label': 'Contactos'},
+                                  {'label': 'cooperativa'},
+                                  {'label': 'quienes somos'},
+                                  {'label': 'contactos'},
                                   {'label': 'productos y servicios'},
                                 ],
                               ),
@@ -336,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                   ],
                   const SizedBox(height: 30),
-                  animatedButton('Videos', () => _navigateTo(context, 'Videos'), icon: Icons.video_library),
+                  animatedButton('Videos', () => _navigateTo(context, 'videos'), icon: Icons.video_library),
                 ],
               ),
             ),
