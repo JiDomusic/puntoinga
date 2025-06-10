@@ -23,6 +23,16 @@ class sobrenosotros extends StatelessWidget {
       ),
       body: Stack(
         children: [
+          // Imagen de fondo cover
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/nuestroservicio2.jpg',
+              fit: BoxFit.cover,
+              color: Colors.black.withOpacity(0.4), // oscurece un poco para mejor contraste
+              colorBlendMode: BlendMode.darken,
+            ),
+          ),
+
           // Fondo con burbujas animadas
           const AnimatedBubbles(),
 
