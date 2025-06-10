@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
-// Asegúrate de tener una pantalla llamada CooperativaPage para navegar hacia ella.
-import 'cooperativa.dart'; // Asegúrate de tener este archivo y clase.
+import 'cooperativa.dart';
 
 class productosyservicios extends StatefulWidget {
   const productosyservicios({super.key});
@@ -83,36 +83,26 @@ class _ProductosYServiciosState extends State<productosyservicios> {
   }
 
   Widget buildCarouselImage(String assetPath, double width, double height) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => FullscreenImagePage(imagePath: assetPath),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.redAccent, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.redAccent, width: 1),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.asset(
-            assetPath,
-            fit: BoxFit.cover,
-            width: width,
-            height: height,
-          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Image.asset(
+          assetPath,
+          fit: BoxFit.cover,
+          width: width,
+          height: height,
         ),
       ),
     );
@@ -128,62 +118,59 @@ class _ProductosYServiciosState extends State<productosyservicios> {
         itemCount: carouselImages.length * 1000,
         itemBuilder: (context, index) {
           final itemIndex = index % carouselImages.length;
-          return buildCarouselImage(carouselImages[itemIndex], width, height / 3 - 24);
+          return buildCarouselImage(
+              carouselImages[itemIndex], width, height / 3 - 24);
         },
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    double carouselWidth = screenWidth > 1000 ? 350 : 200;
-    double carouselHeight = screenHeight * 0.9;
-
-    double imageWidth = screenWidth - carouselWidth - 80;
-    double imageHeight = carouselHeight;
-
-    Widget buildLeftContent() {
-      return Column(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => FullscreenImagePage(
-                    imagePath: 'assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png',
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              width: imageWidth,
-              height: imageHeight - 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.redAccent, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    blurRadius: 10,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
+  Widget buildLeftContent(double screenWidth, double screenHeight) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: const DecorationImage(
+                image: AssetImage('assets/images/fondo_texto.jpg'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black54, BlendMode.darken), // oscurecer
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  'assets/images/serviciopuntorojo.webp',
-                  fit: BoxFit.contain,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  blurRadius: 10,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.all(24),
+            child: Center(
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: screenWidth > 800 ? 20 : 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+                child: AnimatedTextKit(
+                  repeatForever: true,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      "Nuestra cooperativa se dedica a la producción, realización y postproducción de piezas audiovisuales publicitarias y de difusión y a la creación de contenido audiovisual para redes sociales. También el diseño gráfico, el diseño web, la fotografía y la comunicación en general, son parte de los productos y servicios que brindamos.",
+                      speed: const Duration(milliseconds: 40),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 10),
-          ElevatedButton(
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -202,36 +189,65 @@ class _ProductosYServiciosState extends State<productosyservicios> {
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    if (screenWidth > 800) {
+      double carouselWidth = 350;
+      double carouselHeight = screenHeight * 0.9;
+      return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          title: const Text('Productos y Servicios'),
+          backgroundColor: Colors.red[900],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: carouselHeight,
+                  child: buildLeftContent(screenWidth, screenHeight),
+                ),
+              ),
+              const SizedBox(width: 24),
+              buildCarousel(carouselWidth, carouselHeight),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          title: const Text('Productos y Servicios'),
+          backgroundColor: Colors.red[900],
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenHeight * 0.6,
+                width: double.infinity,
+                child: buildLeftContent(screenWidth, screenHeight),
+              ),
+              const SizedBox(height: 24),
+              buildCarousel(screenWidth * 0.9, screenHeight * 0.25),
+            ],
+          ),
+        ),
       );
     }
-
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Productos y Servicios'),
-        backgroundColor: Colors.red[900],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: screenWidth > 800
-            ? Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: buildLeftContent()),
-            const SizedBox(width: 24),
-            buildCarousel(carouselWidth, carouselHeight),
-          ],
-        )
-            : Column(
-          children: [
-            buildLeftContent(),
-            const SizedBox(height: 24),
-            buildCarousel(screenWidth * 0.8, screenHeight * 0.3),
-          ],
-        ),
-      ),
-    );
   }
 }
 

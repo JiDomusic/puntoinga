@@ -26,6 +26,7 @@ dependencies:
   path_provider: ^2.0.15
   syncfusion_flutter_pdfviewer: ^29.2.5
   youtube_player_iframe: ^5.2.1
+  animated_text_kit: ^4.2.2
 
 
 
@@ -79,6 +80,7 @@ flutter:
     - assets/images/nuestroservicio.jpg
     - assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png
     - assets/images/nuestroservicio2.jpg
+    - assets/images/fondo_texto.jpg
 
 
 
