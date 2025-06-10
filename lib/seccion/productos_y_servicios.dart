@@ -19,7 +19,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
   final ScrollController _scrollController = ScrollController();
 
   final List<String> carouselImages = [
-    'assets/images/servicioingacortado.jpg',
+    'assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png',
     'assets/images/nuestroservicio2.jpg',
     'assets/images/nuestroservicio.jpg',
   ];
@@ -154,7 +154,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
                 context,
                 MaterialPageRoute(
                   builder: (_) => FullscreenImagePage(
-                    imagePath: 'assets/images/serviciopuntorojo.webp',
+                    imagePath: 'assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png',
                   ),
                 ),
               );
