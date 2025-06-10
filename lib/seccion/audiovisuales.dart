@@ -44,10 +44,10 @@ class _audiovisualesState extends State<audiovisuales> {
   ];
 
   final List<String> galleryImages = [
-    'assets/images/puntorojo0.jpg',
+    'assets/images/festitrapinga.jpg',
     'assets/images/dillon.jpg',
     'assets/images/INGA8.jpg',
-    'assets/images/audiovisual.jpg',
+    'assets/images/logostitulosinga.png',
     'assets/images/CATA.png',
     'assets/images/ofeliarojo2.png',
   ];
@@ -81,10 +81,6 @@ class _audiovisualesState extends State<audiovisuales> {
     super.dispose();
   }
 
-  void _navigateToServiciosEspeciales() {
-    Navigator.pushNamed(context, '/servicioespeciales');
-  }
-
   void _showImageFullscreen(String imagePath) {
     Navigator.push(
       context,
@@ -108,7 +104,7 @@ class _audiovisualesState extends State<audiovisuales> {
         backgroundColor: const Color(0xFFB80821),
         title: const Text(
           'Nuestro Equipo Audiovisual',
-          style: TextStyle(color: Colors.amber),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
@@ -147,37 +143,27 @@ class _audiovisualesState extends State<audiovisuales> {
                           ),
                           Container(
                             color: Colors.black.withOpacity(0.8),
-                            padding: const EdgeInsets.all(80),
+                            padding: const EdgeInsets.all(40),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   item['title']!,
                                   style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
                                 ),
                                 const SizedBox(height: 7),
-                                Text(
-                                  item['description']!,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: ElevatedButton(
-                                    onPressed: _navigateToServiciosEspeciales,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.redAccent,
+                                if (item['description']!.isNotEmpty)
+                                  Text(
+                                    item['description']!,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white70,
                                     ),
-                                    child: const Text('Ver más'),
                                   ),
-                                )
                               ],
                             ),
                           )
@@ -191,7 +177,7 @@ class _audiovisualesState extends State<audiovisuales> {
             SizedBox(
               width: galleryWidth,
               child: Padding(
-                padding: const EdgeInsets.all(1),
+                padding: const EdgeInsets.all(8),
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -222,7 +208,7 @@ class _audiovisualesState extends State<audiovisuales> {
             : ListView(
           children: [
             SizedBox(
-              height: screenHeight * 0.8,
+              height: screenHeight * 0.6,
               child: PageView.builder(
                 controller: _pageController,
                 itemCount: imageData.length,
@@ -232,7 +218,7 @@ class _audiovisualesState extends State<audiovisuales> {
                 itemBuilder: (context, index) {
                   final item = imageData[index];
                   return Padding(
-                    padding: const EdgeInsets.all(120.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
                     child: Card(
                       elevation: 6,
                       shape: RoundedRectangleBorder(
@@ -244,43 +230,34 @@ class _audiovisualesState extends State<audiovisuales> {
                           Expanded(
                             child: Image.asset(
                               item['image']!,
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                               width: double.infinity,
                             ),
                           ),
                           Container(
-                            color: Colors.black.withOpacity(0.8),
-                            padding: const EdgeInsets.all(12),
+                            color: Colors.black.withOpacity(0.85),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   item['title']!,
                                   style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white,
                                   ),
                                 ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  item['description']!,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: ElevatedButton(
-                                    onPressed: _navigateToServiciosEspeciales,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.redAccent,
+                                if (item['description']!.isNotEmpty) ...[
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    item['description']!,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white70,
                                     ),
-                                    child: const Text('Ver más'),
                                   ),
-                                )
+                                ],
                               ],
                             ),
                           )
@@ -292,15 +269,15 @@ class _audiovisualesState extends State<audiovisuales> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(100),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: galleryImages.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 50,
-                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
                   childAspectRatio: 1,
                 ),
                 itemBuilder: (context, index) {

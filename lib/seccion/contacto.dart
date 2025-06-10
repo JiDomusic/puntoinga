@@ -65,7 +65,7 @@ class _contactoState extends State<contacto> {
               color: Colors.purple,
               title: 'Instagram',
               subtitle: '@puntorojo.rosario',
-              onTap: () => _launchUrl('https://www.instagram.com/puntorojo.rosario'),
+              onTap: () => _launchUrl('https://www.instagram.com/puntorojoproductora'),
             ),
             const SizedBox(height: 20),
 

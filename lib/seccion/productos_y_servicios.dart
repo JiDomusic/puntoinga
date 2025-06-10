@@ -20,8 +20,8 @@ class _ProductosYServiciosState extends State<productosyservicios> {
 
   final List<String> carouselImages = [
     'assets/images/servicioingacortado.jpg',
-    'assets/images/logostitulosinga.png',
-    'assets/images/festitrapinga.jpg',
+    'assets/images/nuestroservicio2.jpg',
+    'assets/images/nuestroservicio.jpg',
   ];
 
   @override
@@ -38,7 +38,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
   }
 
   Future<void> loadPDF() async {
-    final bytes = await rootBundle.load('assets/images/serviciopuntorojo.webp');
+    final bytes = await rootBundle.load('assets/images/nuestroservicio.jpg');
     final dir = await getApplicationDocumentsDirectory();
     final file = File('${dir.path}/preview.pdf');
     await file.writeAsBytes(bytes.buffer.asUint8List());
