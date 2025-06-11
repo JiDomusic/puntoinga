@@ -8,7 +8,7 @@ class galeria extends StatelessWidget {
     'assets/images/INGA77.webp',
     'assets/images/productoss.webp',
     'assets/images/INGA99.webp',
-    'assets/images/galeria2.jpg',
+    'assets/images/galeria3.jpg',
     'assets/images/puntorojo0.jpg',
     'assets/images/galeria.jpg',
     'assets/images/chicainga.jpg',
