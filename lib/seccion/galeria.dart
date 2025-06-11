@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';  // Ajusta la ruta si tu estructura de carpetas es diferente
+import '../main.dart';  // Ajusta si tu archivo HomeScreen está en otro lado
 
 class galeria extends StatelessWidget {
   final List<String> imagePaths = [
@@ -23,6 +23,8 @@ class galeria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -42,10 +44,11 @@ class galeria extends StatelessWidget {
       body: SafeArea(
         child: GridView.builder(
           padding: const EdgeInsets.all(8.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: screenWidth < 600 ? 2 : 4,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
+            childAspectRatio: 1,
           ),
           itemCount: imagePaths.length,
           itemBuilder: (context, index) {

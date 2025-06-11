@@ -101,7 +101,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
     });
   }
 
-  Widget buildCarouselImage(String assetPath, double width, double height) {
+  Widget buildCarouselImage(String assetPath) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -112,9 +112,9 @@ class _ProductosYServiciosState extends State<productosyservicios> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.redAccent, width: 1),
           boxShadow: [
             BoxShadow(
@@ -125,14 +125,18 @@ class _ProductosYServiciosState extends State<productosyservicios> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.asset(
-            assetPath,
-            fit: BoxFit.cover,
-            width: width,
-            height: height,
-            errorBuilder: (context, error, stackTrace) =>
-            const Center(child: Icon(Icons.broken_image, color: Colors.white)),
+          borderRadius: BorderRadius.circular(12),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Image.asset(
+                assetPath,
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                const Center(child: Icon(Icons.broken_image, color: Colors.white)),
+              );
+            },
           ),
         ),
       ),
@@ -140,37 +144,20 @@ class _ProductosYServiciosState extends State<productosyservicios> {
   }
 
   Widget buildCarousel(double width, double height, {bool isMobile = false}) {
-    if (isMobile) {
-      return SizedBox(
-        width: width,
-        height: height,
-        child: PageView.builder(
-          controller: _pageController,
-          itemCount: carouselImages.length,
-          itemBuilder: (context, index) {
-            return buildCarouselImage(carouselImages[index], width, height);
-          },
-        ),
-      );
-    } else {
-      return SizedBox(
-        width: width,
-        height: height,
-        child: ListView.builder(
-          controller: _scrollController,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: carouselImages.length * 1000,
-          itemBuilder: (context, index) {
-            final itemIndex = index % carouselImages.length;
-            return buildCarouselImage(
-              carouselImages[itemIndex],
-              width,
-              height / 3 - 24,
-            );
-          },
-        ),
-      );
-    }
+    return SizedBox(
+      width: width,
+      height: height,
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: carouselImages.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: buildCarouselImage(carouselImages[index]),
+          );
+        },
+      ),
+    );
   }
 
   Widget buildLeftContent(double screenWidth, double screenHeight) {
@@ -183,14 +170,13 @@ class _ProductosYServiciosState extends State<productosyservicios> {
               image: const DecorationImage(
                 image: AssetImage('assets/images/fondo_texto.jpg'),
                 fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    Colors.black54, BlendMode.darken),
+                colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
               ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.5),
                   blurRadius: 10,
-                  offset: const Offset(0, 6),
+                  offset: Offset(0, 6),
                 ),
               ],
             ),
@@ -207,7 +193,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
                   animatedTexts: [
                     TyperAnimatedText(
                       "Nuestra cooperativa se dedica a la producción, realización y postproducción de piezas audiovisuales publicitarias y de difusión y a la creación de contenido audiovisual para redes sociales. También el diseño gráfico, el diseño web, la fotografía y la comunicación en general, son parte de los productos y servicios que brindamos.",
-                      speed: const Duration(milliseconds: 40),
+                      speed: Duration(milliseconds: 40),
                     ),
                   ],
                 ),
@@ -290,7 +276,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
                 child: buildLeftContent(screenWidth, screenHeight),
               ),
               const SizedBox(height: 24),
-              buildCarousel(screenWidth * 0.9, screenHeight * 0.3, isMobile: true),
+              buildCarousel(screenWidth, screenHeight * 0.3, isMobile: true),
             ],
           ),
         ),
