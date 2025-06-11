@@ -40,27 +40,47 @@ class galeria extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: GridView.builder(
-          padding: const EdgeInsets.all(8.0),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 250, // Tamaño máximo por celda
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 1,
-          ),
-          itemCount: imagePaths.length,
-          itemBuilder: (context, index) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                color: Colors.grey[900],
-                child: Image.asset(
-                  imagePaths[index],
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            int crossAxisCount = 2; // predeterminado para móviles
+            double width = constraints.maxWidth;
+
+            if (width >= 1200) {
+              crossAxisCount = 5;
+            } else if (width >= 900) {
+              crossAxisCount = 4;
+            } else if (width >= 600) {
+              crossAxisCount = 3;
+            }
+
+            return GridView.builder(
+              padding: const EdgeInsets.all(10),
+              itemCount: imagePaths.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1,
               ),
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    color: Colors.grey[900],
+                    child: Image.asset(
+                      imagePaths[index],
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                      errorBuilder: (context, error, stackTrace) => const Icon(
+                        Icons.broken_image,
+                        color: Colors.white38,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
