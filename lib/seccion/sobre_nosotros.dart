@@ -29,7 +29,7 @@ class sobrenosotros extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'assets/images/nuestroservicio2.webp',
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               alignment: Alignment.center,
               color: Colors.black.withOpacity(0.5),
               colorBlendMode: BlendMode.darken,

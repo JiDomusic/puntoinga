@@ -22,7 +22,6 @@ class _ProductosYServiciosState extends State<productosyservicios> {
 
   final List<String> carouselImages = [
     'assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png',
-    'assets/images/nuestroservicio2.webp',
     'assets/images/puntorojo3.png',
   ];
 
