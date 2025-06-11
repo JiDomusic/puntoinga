@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           child: buildContent(
                             title: 'Punto Rojo',
-                            imagePath: 'assets/images/puntorojo2.png',
+                            imagePath: 'assets/images/puntorojo2.jpg',
                             buttons: [
                               {'label': 'sobre nosotros'},
                               {'label': 'servicios especiales'},

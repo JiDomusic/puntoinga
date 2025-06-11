@@ -5,9 +5,9 @@ class galeria extends StatelessWidget {
   final List<String> imagePaths = [
     'assets/images/puntorojo4.jpg',
     'assets/images/servicioingacortado.jpg',
-    'assets/images/INGA7.jpg',
-    'assets/images/productos.jpg',
-    'assets/images/INGA9.JPG',
+    'assets/images/INGA77.webp',
+    'assets/images/productoss.webp',
+    'assets/images/INGA99.webp',
     'assets/images/galeria2.jpg',
     'assets/images/puntorojo0.jpg',
     'assets/images/galeria.jpg',
