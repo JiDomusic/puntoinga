@@ -10,6 +10,7 @@ class sobrenosotros extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -22,85 +23,82 @@ class sobrenosotros extends StatelessWidget {
         ).animate().fadeIn(),
       ),
       body: Stack(
+        fit: StackFit.expand, // Asegura que todo el fondo cubre la pantalla
         children: [
-          // Imagen de fondo cover
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/nuestroservicio2.jpg',
-              fit: BoxFit.cover,
-              color: Colors.black.withOpacity(0.4), // oscurece un poco para mejor contraste
-              colorBlendMode: BlendMode.darken,
-            ),
+          // Imagen de fondo
+          Image.asset(
+            'assets/images/nuestroservicio2.jpg',
+            fit: BoxFit.cover,
+            color: Colors.black.withOpacity(0.5),
+            colorBlendMode: BlendMode.darken,
           ),
 
-          // Fondo con burbujas animadas
+          // Burbujas animadas
           const AnimatedBubbles(),
 
-          // Contenido centrado
+          // Contenido principal
           Center(
             child: SingleChildScrollView(
-              child: ConstrainedBox(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 constraints: const BoxConstraints(maxWidth: 800),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // LOGO
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/images/puntorojo2.jpg',
-                          height: isMobile ? 180 : 250,
-                          fit: BoxFit.contain,
-                        ),
-                      ).animate().fadeIn(duration: 1000.ms),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // LOGO
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        'assets/images/puntorojo2.jpg',
+                        height: isMobile ? 180 : 250,
+                        fit: BoxFit.contain,
+                      ),
+                    ).animate().fadeIn(duration: 1000.ms),
 
-                      const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-                      // TÍTULO
-                      Text(
-                        'Bienvenidos a Punto Rojo',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: isMobile ? 24 : 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ).animate().fadeIn().slideY(begin: 0.2, duration: 800.ms),
+                    // TÍTULO
+                    Text(
+                      'Bienvenidos a Punto Rojo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isMobile ? 24 : 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ).animate().fadeIn().slideY(begin: 0.2, duration: 800.ms),
 
-                      const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                      // DESCRIPCIÓN
-                      Text(
-                        """Punto Rojo es una productora de contenidos nacida del trabajo cooperativo de profesionales de las artes visuales, la literatura, el cine y la música, que ofrecemos servicios culturales.
+                    // DESCRIPCIÓN
+                    Text(
+                      """Punto Rojo es una productora de contenidos nacida del trabajo cooperativo de profesionales de las artes visuales, la literatura, el cine y la música, que ofrecemos servicios culturales.
 
 Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institucional, el Diseño gráfico y la comunicación visual, entre otros.""",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: isMobile ? 16 : 18,
-                          height: 1.6,
-                          color: Colors.white70,
-                        ),
-                      ).animate().fadeIn(delay: 400.ms, duration: 1000.ms),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isMobile ? 16 : 18,
+                        height: 1.6,
+                        color: Colors.white70,
+                      ),
+                    ).animate().fadeIn(delay: 400.ms, duration: 1000.ms),
 
-                      const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-                      // BOTÓN DE VOLVER
-                      ElevatedButton.icon(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                        label: const Text('Volver al Inicio'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                        ),
-                      ).animate().fadeIn(delay: 800.ms),
-                    ],
-                  ),
+                    // BOTÓN
+                    ElevatedButton.icon(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                      label: const Text('Volver al Inicio'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      ),
+                    ).animate().fadeIn(delay: 800.ms),
+                  ],
                 ),
               ),
             ),
@@ -111,7 +109,7 @@ Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institu
   }
 }
 
-// Fondo animado
+// Animación de burbujas
 class AnimatedBubbles extends StatelessWidget {
   const AnimatedBubbles({super.key});
 
@@ -146,8 +144,6 @@ class AnimatedBubbles extends StatelessWidget {
       );
     });
 
-    return SizedBox.expand(
-      child: Stack(children: bubbles),
-    );
+    return SizedBox.expand(child: Stack(children: bubbles));
   }
 }
