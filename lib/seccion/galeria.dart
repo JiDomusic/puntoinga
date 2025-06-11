@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';  // Ajusta si tu archivo HomeScreen está en otro lado
+import '../main.dart'; // Ajusta si HomeScreen está en otra ruta
 
 class galeria extends StatelessWidget {
   final List<String> imagePaths = [
@@ -23,8 +23,6 @@ class galeria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -44,8 +42,8 @@ class galeria extends StatelessWidget {
       body: SafeArea(
         child: GridView.builder(
           padding: const EdgeInsets.all(8.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: screenWidth < 600 ? 2 : 4,
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 250, // Tamaño máximo por celda
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             childAspectRatio: 1,
@@ -54,9 +52,14 @@ class galeria extends StatelessWidget {
           itemBuilder: (context, index) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                imagePaths[index],
-                fit: BoxFit.cover,
+              child: Container(
+                color: Colors.grey[900],
+                child: Image.asset(
+                  imagePaths[index],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
               ),
             );
           },

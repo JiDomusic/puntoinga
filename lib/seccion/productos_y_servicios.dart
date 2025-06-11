@@ -161,70 +161,48 @@ class _ProductosYServiciosState extends State<productosyservicios> {
   }
 
   Widget buildLeftContent(double screenWidth, double screenHeight) {
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/fondo_texto.jpg'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+    final bool isMobile = screenWidth < 600;
+    final double containerHeight = isMobile ? screenHeight * 0.6 : screenHeight * 0.9;
+
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: 300,
+        maxHeight: containerHeight,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        image: const DecorationImage(
+          image: AssetImage('assets/images/fondo_texto.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 10,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(24),
+      child: Center(
+        child: DefaultTextStyle(
+          style: TextStyle(
+            fontSize: screenWidth > 800 ? 20 : 16,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+          child: AnimatedTextKit(
+            repeatForever: true,
+            animatedTexts: [
+              TyperAnimatedText(
+                "Nuestra cooperativa se dedica a la producción, realización y postproducción de piezas audiovisuales publicitarias y de difusión y a la creación de contenido audiovisual para redes sociales. También el diseño gráfico, el diseño web, la fotografía y la comunicación en general, son parte de los productos y servicios que brindamos.",
+                speed: Duration(milliseconds: 40),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  blurRadius: 10,
-                  offset: Offset(0, 6),
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(24),
-            child: Center(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: screenWidth > 800 ? 20 : 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-                child: AnimatedTextKit(
-                  repeatForever: true,
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      "Nuestra cooperativa se dedica a la producción, realización y postproducción de piezas audiovisuales publicitarias y de difusión y a la creación de contenido audiovisual para redes sociales. También el diseño gráfico, el diseño web, la fotografía y la comunicación en general, son parte de los productos y servicios que brindamos.",
-                      speed: Duration(milliseconds: 40),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ],
           ),
         ),
-        const SizedBox(height: 10),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const cooperativa()),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red[800],
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text(
-              'Ver más',
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -270,11 +248,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              SizedBox(
-                height: screenHeight * 0.6,
-                width: double.infinity,
-                child: buildLeftContent(screenWidth, screenHeight),
-              ),
+              buildLeftContent(screenWidth, screenHeight),
               const SizedBox(height: 24),
               buildCarousel(screenWidth, screenHeight * 0.3, isMobile: true),
             ],

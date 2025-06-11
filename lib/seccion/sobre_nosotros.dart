@@ -25,22 +25,23 @@ class sobrenosotros extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Imagen de fondo que se adapta a cualquier pantalla
-          SizedBox(
-            height: screenHeight,
-            width: double.infinity,
+          // Imagen de fondo responsiva con protección por error
+          Positioned.fill(
             child: Image.asset(
               'assets/images/nuestroservicio2.jpg',
               fit: BoxFit.cover,
+              alignment: Alignment.center,
               color: Colors.black.withOpacity(0.5),
               colorBlendMode: BlendMode.darken,
+              errorBuilder: (context, error, stackTrace) =>
+              const Center(child: Icon(Icons.broken_image, color: Colors.white)),
             ),
           ),
 
           // Burbujas animadas
           const AnimatedBubbles(),
 
-          // Contenido centrado scrollable
+          // Contenido centrado y scrollable
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
