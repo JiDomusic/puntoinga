@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'cooperativa.dart';
@@ -17,6 +18,8 @@ class productosyservicios extends StatefulWidget {
 class _ProductosYServiciosState extends State<productosyservicios> {
   String? localPDFPath;
   final ScrollController _scrollController = ScrollController();
+  final PageController _pageController = PageController();
+  Timer? _carouselTimer;
 
   final List<String> carouselImages = [
     'assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png',
@@ -29,11 +32,14 @@ class _ProductosYServiciosState extends State<productosyservicios> {
     super.initState();
     loadPDF();
     WidgetsBinding.instance.addPostFrameCallback((_) => _startAutoScroll());
+    _startAutoPageView();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _pageController.dispose();
+    _carouselTimer?.cancel();
     super.dispose();
   }
 
@@ -82,47 +88,89 @@ class _ProductosYServiciosState extends State<productosyservicios> {
     }
   }
 
+  void _startAutoPageView() {
+    _carouselTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (!_pageController.hasClients) return;
+      int nextPage = _pageController.page!.round() + 1;
+      if (nextPage >= carouselImages.length) nextPage = 0;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
   Widget buildCarouselImage(String assetPath, double width, double height) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.redAccent, width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FullscreenImagePage(imagePath: assetPath),
           ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Image.asset(
-          assetPath,
-          fit: BoxFit.cover,
-          width: width,
-          height: height,
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.redAccent, width: 1),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.cover,
+            width: width,
+            height: height,
+            errorBuilder: (context, error, stackTrace) =>
+            const Center(child: Icon(Icons.broken_image, color: Colors.white)),
+          ),
         ),
       ),
     );
   }
 
-  Widget buildCarousel(double width, double height) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: ListView.builder(
-        controller: _scrollController,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: carouselImages.length * 1000,
-        itemBuilder: (context, index) {
-          final itemIndex = index % carouselImages.length;
-          return buildCarouselImage(
-              carouselImages[itemIndex], width, height / 3 - 24);
-        },
-      ),
-    );
+  Widget buildCarousel(double width, double height, {bool isMobile = false}) {
+    if (isMobile) {
+      return SizedBox(
+        width: width,
+        height: height,
+        child: PageView.builder(
+          controller: _pageController,
+          itemCount: carouselImages.length,
+          itemBuilder: (context, index) {
+            return buildCarouselImage(carouselImages[index], width, height);
+          },
+        ),
+      );
+    } else {
+      return SizedBox(
+        width: width,
+        height: height,
+        child: ListView.builder(
+          controller: _scrollController,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: carouselImages.length * 1000,
+          itemBuilder: (context, index) {
+            final itemIndex = index % carouselImages.length;
+            return buildCarouselImage(
+              carouselImages[itemIndex],
+              width,
+              height / 3 - 24,
+            );
+          },
+        ),
+      );
+    }
   }
 
   Widget buildLeftContent(double screenWidth, double screenHeight) {
@@ -136,7 +184,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
                 image: AssetImage('assets/images/fondo_texto.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                    Colors.black54, BlendMode.darken), // oscurecer
+                    Colors.black54, BlendMode.darken),
               ),
               boxShadow: [
                 BoxShadow(
@@ -242,7 +290,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
                 child: buildLeftContent(screenWidth, screenHeight),
               ),
               const SizedBox(height: 24),
-              buildCarousel(screenWidth * 0.9, screenHeight * 0.25),
+              buildCarousel(screenWidth * 0.9, screenHeight * 0.3, isMobile: true),
             ],
           ),
         ),
@@ -287,7 +335,15 @@ class FullscreenImagePage extends StatelessWidget {
       ),
       body: Center(
         child: InteractiveViewer(
-          child: Image.asset(imagePath, fit: BoxFit.contain),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(
+                child: Icon(Icons.broken_image, color: Colors.white, size: 80),
+              );
+            },
+          ),
         ),
       ),
     );
