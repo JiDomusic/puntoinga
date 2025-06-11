@@ -6,7 +6,6 @@ import 'dart:io';
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-import 'cooperativa.dart';
 
 class productosyservicios extends StatefulWidget {
   const productosyservicios({super.key});
@@ -172,7 +171,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: const DecorationImage(
-          image: AssetImage('assets/images/fondo_texto.jpg'),
+          image: AssetImage('assets/images/fondo_texto.webp'),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
         ),

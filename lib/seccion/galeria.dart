@@ -15,7 +15,7 @@ class galeria extends StatelessWidget {
     'assets/images/audiovisual.jpg',
     'assets/images/PUNTOROJO.jpg',
     'assets/images/puntorojofilm.jpg',
-    'assets/images/productos2.jpg',
+    'assets/images/productos2.webp',
     'assets/images/filmpuntorojo.jpg',
     'assets/images/cajaforenseinga.jpg',
     'assets/images/paya.jpg',
