@@ -44,9 +44,9 @@ class _audiovisualesState extends State<audiovisuales> {
   ];
 
   final List<String> galleryImages = [
-    'assets/images/festitrapinga.jpg',
-    'assets/images/dillon.jpg',
-    'assets/images/INGA8.jpg',
+    'assets/images/festitrapinga2.webp',
+    'assets/images/dillon.webp',
+    'assets/images/quienessomosingafoto.webp',
     'assets/images/logostitulosinga.png',
     'assets/images/CATA.png',
     'assets/images/ofeliarojo2.png',

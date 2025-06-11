@@ -56,7 +56,7 @@ class sobrenosotros extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
-                            'assets/images/puntorojo2.jpg',
+                            'assets/images/puntorojo.jpg',
                             height: isMobile ? 180 : 250,
                             fit: BoxFit.contain,
                           ),
