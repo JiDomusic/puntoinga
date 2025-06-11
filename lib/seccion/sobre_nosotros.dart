@@ -28,7 +28,7 @@ class sobrenosotros extends StatelessWidget {
           // Imagen de fondo responsiva con protección por error
           Positioned.fill(
             child: Image.asset(
-              'assets/images/nuestroservicio2.jpg',
+              'assets/images/nuestroservicio2.webp',
               fit: BoxFit.cover,
               alignment: Alignment.center,
               color: Colors.black.withOpacity(0.5),
