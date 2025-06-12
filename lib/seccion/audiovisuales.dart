@@ -12,32 +12,32 @@ class _audiovisualesState extends State<audiovisuales> {
   final PageController _pageController = PageController(viewportFraction: 1.0);
   final List<Map<String, String>> imageData = [
     {
-      'image': 'assets/images/Placa para reel PR 001.jpg',
+      'image': 'assets/images/Placa para reel PR 001.webp',
       'title': 'STREAMING PROFESIONAL MULTICÁMARA',
       'description': ''
     },
     {
-      'image': 'assets/images/Placa para reel PR 002.jpg',
+      'image': 'assets/images/Placa para reel PR 002.webp',
       'title': 'SERVICIO DE PRENSA Y COMUNICACIÓN INSTITUCIONAL',
       'description': ''
     },
     {
-      'image': 'assets/images/Placa para reel PR 003.jpg',
+      'image': 'assets/images/Placa para reel PR 003.webp',
       'title': 'TUTORIALES AUDIOVISUALES PARA REDES SOCIALES',
       'description': ''
     },
     {
-      'image': 'assets/images/Placa para reel PR 004.jpg',
+      'image': 'assets/images/Placa para reel PR 004.webp',
       'title': 'Comunidad',
       'description': 'Cultura que se comparte y se vive.'
     },
     {
-      'image': 'assets/images/Placa para reel PR 005.jpg',
+      'image': 'assets/images/Placa para reel PR 005.webp',
       'title': 'Innovación',
       'description': 'Creatividad y tecnología en acción.'
     },
     {
-      'image': 'assets/images/Placa para reel PR 006.jpg',
+      'image': 'assets/images/Placa para reel PR 006.webp',
       'title': 'Pasión Audiovisual',
       'description': 'Cada cuadro cuenta una historia.'
     },
