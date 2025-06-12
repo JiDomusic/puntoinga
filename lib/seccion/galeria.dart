@@ -45,7 +45,7 @@ class galeria extends StatelessWidget {
             int crossAxisCount = 2; // predeterminado para móviles
             double width = constraints.maxWidth;
 
-            if (width >= 1200) {
+            if (width >= 1400) {
               crossAxisCount = 5;
             } else if (width >= 900) {
               crossAxisCount = 4;
