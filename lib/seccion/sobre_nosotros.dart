@@ -31,7 +31,7 @@ class sobrenosotros extends StatelessWidget {
               'assets/images/nuestroservicio2.webp',
               fit: BoxFit.contain,
               alignment: Alignment.center,
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.white.withOpacity(0.1),
               colorBlendMode: BlendMode.darken,
               errorBuilder: (context, error, stackTrace) =>
               const Center(child: Icon(Icons.broken_image, color: Colors.white)),
