@@ -49,7 +49,7 @@ class _audiovisualesState extends State<audiovisuales> {
     'assets/images/logostitulosinga.png',
     'assets/images/CATA.png',
     'assets/images/ofeliarojo2.png',
-    'assets/images/galeria.jpg'
+    'assets/images/galeria.webp'
   ];
 
   int currentIndex = 0;

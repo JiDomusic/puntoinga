@@ -3,22 +3,22 @@ import '../main.dart'; // Ajusta si HomeScreen está en otra ruta
 
 class galeria extends StatelessWidget {
   final List<String> imagePaths = [
-    'assets/images/puntorojo4.jpg',
-    'assets/images/servicioingacortado.jpg',
+    'assets/images/puntorojo4.webp',
+    'assets/images/servicioingacortado.webp',
     'assets/images/INGA77.webp',
     'assets/images/productoss.webp',
     'assets/images/INGA99.webp',
-    'assets/images/galeria3.jpg',
-    'assets/images/puntorojo0.jpg',
-    'assets/images/galeria.jpg',
-    'assets/images/chicainga.jpg',
-    'assets/images/audiovisual.jpg',
-    'assets/images/PUNTOROJO.jpg',
-    'assets/images/puntorojofilm.jpg',
+    'assets/images/galeria3.webp',
+    'assets/images/puntorojo0.webp',
+    'assets/images/galeria.webp',
+    'assets/images/chicainga.webp',
+    'assets/images/audiovisual.webp',
+    'assets/images/PUNTOROJO.webp',
+    'assets/images/puntorojofilm.webp',
     'assets/images/productos2.webp',
-    'assets/images/filmpuntorojo.jpg',
-    'assets/images/cajaforenseinga.jpg',
-    'assets/images/paya.jpg',
+    'assets/images/filmpuntorojo.webp',
+    'assets/images/cajaforenseinga.webp',
+    'assets/images/paya.webp',
   ];
 
   @override
