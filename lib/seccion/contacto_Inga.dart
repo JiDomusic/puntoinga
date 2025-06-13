@@ -100,7 +100,7 @@ class contacto_inga extends StatelessWidget {
                   label: 'contacto@inga.com',
                   color: rojo,
                   onTap: () async {
-                    final url = Uri.parse('mailto:contacto@inga.com');
+                    final url = Uri.parse('casaculturalinga@gmail.com');
                     if (await canLaunchUrl(url)) {
                       await launchUrl(url);
                     }
