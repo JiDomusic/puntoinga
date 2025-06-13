@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart'; // ✨ Requiere paquete flutter_animate
+import 'package:flutter_animate/flutter_animate.dart';
 import 'quienes_somos.dart';
 
 class cooperativa extends StatefulWidget {
@@ -29,6 +29,9 @@ class _CooperativaState extends State<cooperativa>
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -39,195 +42,178 @@ class _CooperativaState extends State<cooperativa>
       ),
       body: Stack(
         children: [
-          // 🌈 Fondo gradiente
-          AnimatedContainer(
-            duration: const Duration(seconds: 10),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF8E0E00),
-                  Color(0xFFFFA500),
-                  Color(0xFF8E0E00),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+          // 🌄 Fondo con imagen y overlay
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/fondoamarillo.webp"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4),
+                  BlendMode.darken,
+                ),
               ),
             ),
           ),
-          SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // LOGO
-                Hero(
-                  tag: 'logo-coop',
-                  child: Image.asset(
-                    'assets/images/coopinga.png',
-                    width: 200,
-                    height: 200,
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xAA000000),
+                  Color(0x44000000),
+                  Color(0xAA000000),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+
+          // 🌟 Contenido principal
+          Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // 🌀 Logo animado
+                  Hero(
+                    tag: 'logo-coop',
+                    child: Image.asset(
+                      'assets/images/coopinga.png',
+                      width: 200,
+                      height: 200,
+                    )
+                        .animate()
+                        .scale(
+                        delay: 200.ms,
+                        duration: 800.ms,
+                        curve: Curves.elasticOut)
+                        .shimmer(duration: 2000.ms, color: Colors.white)
+                        .then(delay: 2.seconds)
+                        .shake(hz: 1, curve: Curves.easeOutCubic),
+                  ),
+                  const SizedBox(height: 40),
+
+                  // ✨ Título principal
+                  Text(
+                    '¡Bienvenidos a Cooperativa Inga!',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      height: 1.3,
+                    ),
                   )
                       .animate()
-                      .scale(
-                      delay: 200.ms,
-                      duration: 800.ms,
-                      curve: Curves.elasticOut)
-                      .shimmer(duration: 2000.ms, color: Colors.white)
-                      .then(delay: 2.seconds)
-                      .shake(hz: 1, curve: Curves.easeOutCubic),
-                ),
-                const SizedBox(height: 40),
+                      .fadeIn(delay: 500.ms)
+                      .slide(begin: Offset(0, 0.3), duration: 800.ms)
+                      .then(delay: 1.seconds)
+                      .scaleXY(end: 1.02, curve: Curves.easeInOut, duration: 600.ms),
 
-                // TITULO PRINCIPAL
-                Text(
-                  '¡Bienvenidos a Cooperativa Inga!',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    height: 1.3,
-                  ),
-                )
-                    .animate()
-                    .fadeIn(delay: 500.ms)
-                    .slideY(begin: 0.3, duration: 800.ms)
-                    .then(delay: 1.seconds)
-                    .scaleXY(
-                    end: 1.02, curve: Curves.easeInOut, duration: 600.ms),
+                  const SizedBox(height: 30),
 
-                const SizedBox(height: 30),
+                  // 📣 Texto institucional
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(bottom: 24),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.amberAccent, width: 1.2),
+                    ),
+                    child: const Text(
+                      "Acompañamos a ONGs, cooperativas, instituciones culturales, sindicatos y organismos públicos. Promovemos el acceso a herramientas de comunicación audiovisual con compromiso social.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        height: 1.5,
+                      ),
+                    ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 900.ms)
+                      .slide(begin: Offset(0, 0.3)),
 
-                // SECCIÓN NUESTROS VALORES
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    bool isWide = constraints.maxWidth > 600;
-                    return Container(
-                      padding: const EdgeInsets.all(24),
-                      margin: const EdgeInsets.symmetric(vertical: 24),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.black.withOpacity(0.5),
-                        image: DecorationImage(
-                          image: const AssetImage(
-                              'assets/images/fondoamarillo.webp'),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.3),
-                            BlendMode.darken,
-                          ),
+                  // ✅ Nuestros valores
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Nuestros valores",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amberAccent,
                         ),
                       ),
-                      child: isWide
-                          ? Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                'assets/images/fondoamarillo.webp',
-                                fit: BoxFit.cover,
-                                height: 250,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 24),
-                          Expanded(child: _buildValoresTexto()),
-                        ],
-                      )
-                          : Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.asset(
-                              'assets/images/fondoamarillo.webp',
-                              fit: BoxFit.cover,
-                              height: 200,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildValoresTexto(),
-                        ],
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: Colors.amber, width: 1.2),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text("✔ Calidad y profesionalismo", style: TextStyle(color: Colors.white, fontSize: 18)),
+                            SizedBox(height: 8),
+                            Text("✔ Honestidad y transparencia", style: TextStyle(color: Colors.white, fontSize: 18)),
+                            SizedBox(height: 8),
+                            Text("✔ Respeto por la diversidad", style: TextStyle(color: Colors.white, fontSize: 18)),
+                            SizedBox(height: 8),
+                            Text("✔ Cooperación y solidaridad", style: TextStyle(color: Colors.white, fontSize: 18)),
+                          ],
+                        ),
                       ),
-                    );
-                  },
-                ),
+                    ],
+                  )
+                      .animate()
+                      .fadeIn(delay: 1.seconds)
+                      .slide(begin: Offset(0, 0.3)),
 
-                const SizedBox(height: 40),
+                  const SizedBox(height: 40),
 
-                // BOTÓN
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow[700],
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  // 🚀 Botón
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.yellow[700],
+                      foregroundColor: Colors.black,
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
-                  ),
-                  icon: const Icon(Icons.explore),
-                  label: const Text(
-                    'Explorar la Cooperativa',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const quienessomos(),
-                      ),
-                    );
-                  },
-                )
-                    .animate()
-                    .fadeIn(delay: 1.seconds)
-                    .slideY(begin: 0.3)
-                    .scaleXY(end: 1.05, curve: Curves.easeOutBack),
-              ],
+                    icon: const Icon(Icons.explore),
+                    label: const Text(
+                      'Explorar la Cooperativa',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const quienessomos(),
+                        ),
+                      );
+                    },
+                  )
+                      .animate()
+                      .fadeIn(delay: 1.2.seconds)
+                      .slide(begin: Offset(0, 0.3))
+                      .scaleXY(end: 1.05, curve: Curves.easeOutBack),
+                ],
+              ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  // 👉 Widget para mostrar los valores
-  Widget _buildValoresTexto() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
-          "Nuestros valores",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.amberAccent,
-          ),
-        ),
-        SizedBox(height: 16),
-        ListTile(
-          leading: Icon(Icons.check_circle_outline, color: Colors.greenAccent),
-          title: Text("Calidad y profesionalismo",
-              style: TextStyle(color: Colors.white)),
-        ),
-        ListTile(
-          leading: Icon(Icons.check_circle_outline, color: Colors.greenAccent),
-          title: Text("Honestidad y transparencia",
-              style: TextStyle(color: Colors.white)),
-        ),
-        ListTile(
-          leading: Icon(Icons.check_circle_outline, color: Colors.greenAccent),
-          title: Text("Respeto por la diversidad",
-              style: TextStyle(color: Colors.white)),
-        ),
-        ListTile(
-          leading: Icon(Icons.check_circle_outline, color: Colors.greenAccent),
-          title: Text("Cooperación y solidaridad",
-              style: TextStyle(color: Colors.white)),
-        ),
-      ],
     );
   }
 }
