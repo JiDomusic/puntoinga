@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import '../main.dart'; // Ajusta si HomeScreen está en otra ruta
+import '../main.dart'; // Asegúrate de que HomeScreen esté correctamente importado
 
-class galeria extends StatelessWidget {
+class galeria extends StatefulWidget {
+  const galeria({Key? key}) : super(key: key);
+
+  @override
+  State<galeria> createState() => _galeriaState();
+}
+
+class _galeriaState extends State<galeria> {
   final List<String> imagePaths = [
     'assets/images/paya.webp',
     'assets/images/servicioingacortado.webp',
     'assets/images/INGA77.webp',
-    'assets/images/productoss.webp',
-    'assets/images/INGA99.webp',
+    'assets/images/productos2.webp',
+    'assets/images/INGA77.webp',
     'assets/images/galeria3.webp',
     'assets/images/puntorojo0.webp',
     'assets/images/galeria.webp',
@@ -20,6 +27,14 @@ class galeria extends StatelessWidget {
     'assets/images/cajaforenseinga.webp',
     'assets/images/puntorojo4.webp',
   ];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    for (final path in imagePaths) {
+      precacheImage(AssetImage(path), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +57,12 @@ class galeria extends StatelessWidget {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            int crossAxisCount = 2; // predeterminado para móviles
+            int crossAxisCount = 2;
             double width = constraints.maxWidth;
 
             if (width >= 900) {
               crossAxisCount = 5;
-            } else if (width >= 900) {
+            } else if (width >= 700) {
               crossAxisCount = 4;
             } else if (width >= 600) {
               crossAxisCount = 3;
@@ -72,6 +87,18 @@ class galeria extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
+                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                        if (wasSynchronouslyLoaded || frame != null) {
+                          return child;
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white70),
+                            ),
+                          );
+                        }
+                      },
                       errorBuilder: (context, error, stackTrace) => const Icon(
                         Icons.broken_image,
                         color: Colors.white38,
