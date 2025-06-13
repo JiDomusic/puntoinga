@@ -33,8 +33,8 @@ class sobrenosotros extends StatelessWidget {
               alignment: Alignment.center,
               color: Colors.white.withOpacity(0.1),
               colorBlendMode: BlendMode.darken,
-              errorBuilder: (context, error, stackTrace) =>
-              const Center(child: Icon(Icons.broken_image, color: Colors.white)),
+
+
             ),
           ),
 
