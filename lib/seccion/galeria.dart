@@ -11,7 +11,6 @@ class galeria extends StatefulWidget {
 class _galeriaState extends State<galeria> {
   final List<String> imagePaths = [
     'assets/images/paya.webp',
-    'assets/images/servicioingacortado.webp',
     'assets/images/INGA77.webp',
     'assets/images/productos2.webp',
     'assets/images/INGA77.webp',
