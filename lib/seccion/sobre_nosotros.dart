@@ -57,7 +57,7 @@ class sobrenosotros extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
                             'assets/images/puntorojo.webp',
-                            height: isMobile ? 180 : 250,
+                            height: isMobile ? 150 : 200,
                             fit: BoxFit.contain,
                           ),
                         ).animate().fadeIn(duration: 1000.ms),

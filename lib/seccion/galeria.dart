@@ -11,7 +11,7 @@ class galeria extends StatelessWidget {
     'assets/images/galeria3.webp',
     'assets/images/puntorojo0.webp',
     'assets/images/galeria.webp',
-    'assets/images/chicainga.webp',
+    'assets/images/chicagaleria.webp',
     'assets/images/audiovisual.webp',
     'assets/images/PUNTOROJO.webp',
     'assets/images/puntorojofilm.webp',
@@ -45,7 +45,7 @@ class galeria extends StatelessWidget {
             int crossAxisCount = 2; // predeterminado para móviles
             double width = constraints.maxWidth;
 
-            if (width >= 1400) {
+            if (width >= 900) {
               crossAxisCount = 5;
             } else if (width >= 900) {
               crossAxisCount = 4;
