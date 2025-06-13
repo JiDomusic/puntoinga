@@ -42,26 +42,23 @@ class _CooperativaState extends State<cooperativa>
       ),
       body: Stack(
         children: [
-          // 🌄 Fondo con imagen y overlay
+          // 🌄 Imagen de fondo
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/fondoamarillo.webp"),
                 fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.4),
-                  BlendMode.darken,
-                ),
               ),
             ),
           ),
+
+          // 🟡 Degradado amarillo translúcido encima
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xAA000000),
-                  Color(0x44000000),
-                  Color(0xAA000000),
+                  Color(0xCCF1BC0E), // Amarillo claro con opacidad
+                  Color(0x7C000000), // Negro con opacidad para contraste
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -69,14 +66,14 @@ class _CooperativaState extends State<cooperativa>
             ),
           ),
 
-          // 🌟 Contenido principal
+          // 🌟 Contenido
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // 🌀 Logo animado
+                  // 🌀 Logo
                   Hero(
                     tag: 'logo-coop',
                     child: Image.asset(
@@ -86,23 +83,25 @@ class _CooperativaState extends State<cooperativa>
                     )
                         .animate()
                         .scale(
-                        delay: 200.ms,
-                        duration: 800.ms,
-                        curve: Curves.elasticOut)
+                      delay: 200.ms,
+                      duration: 800.ms,
+                      curve: Curves.elasticOut,
+                    )
                         .shimmer(duration: 2000.ms, color: Colors.white)
                         .then(delay: 2.seconds)
                         .shake(hz: 1, curve: Curves.easeOutCubic),
                   ),
+
                   const SizedBox(height: 40),
 
-                  // ✨ Título principal
+                  // ✨ Título
                   Text(
                     '¡Bienvenidos a Cooperativa Inga!',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                       height: 1.3,
                     ),
                   )
@@ -119,7 +118,7 @@ class _CooperativaState extends State<cooperativa>
                     padding: const EdgeInsets.all(16),
                     margin: const EdgeInsets.only(bottom: 24),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: Colors.amberAccent, width: 1.2),
                     ),
@@ -137,7 +136,7 @@ class _CooperativaState extends State<cooperativa>
                       .fadeIn(delay: 900.ms)
                       .slide(begin: Offset(0, 0.3)),
 
-                  // ✅ Nuestros valores
+                  // ✅ Valores
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -184,8 +183,7 @@ class _CooperativaState extends State<cooperativa>
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.yellow[700],
                       foregroundColor: Colors.black,
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
