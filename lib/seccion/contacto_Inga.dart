@@ -36,7 +36,7 @@ class contacto_inga extends StatelessWidget {
             child: Opacity(
               opacity: 0.50,
               child: Image.asset(
-                'assets/images/c7863207-ebb7-4164-aac0-618dce99363a.png',
+                'assets/images/LOOOGOO.png',
                 fit: BoxFit.cover,
               ),
             ),
