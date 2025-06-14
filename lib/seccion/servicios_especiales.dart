@@ -35,7 +35,7 @@ class serviciosespeciales extends StatelessWidget {
                   children: [
                     servicioItem(
                       titulo: 'Streaming Multicámaras',
-                      imagenAsset: 'assets/images/01.jpg',
+                      imagenAsset: 'assets/images/03.jpg',
                       descripcion:
                       """Este servicio a una, o más cámaras, permite el registro de diversas actividades para establecimientos, instituciones, individuos o grupos que quieran mejorar su apariencia e imagen en las redes, dejando atrás el amateurismo y convirtiendo a las transmisiones en vivo en streaming profesional multicámara. 
 • Se puede realizar como re streaming de conversatorios, charlas y capacitaciones.
@@ -47,7 +47,7 @@ class serviciosespeciales extends StatelessWidget {
                     const SizedBox(height: 30),
                     servicioItem(
                       titulo: 'Prensa y Comunicación Integral',
-                      imagenAsset: 'assets/images/03.jpg',
+                      imagenAsset: 'assets/images/01.jpg',
                       descripcion:
                       """Ofrecemos un servicio de comunicación integral, institucional, tanto interna como externa. 
 • Desarrollamos la cobertura de eventos y diversas actividades a través de registro fotográfico, audiovisual y periodístico. 

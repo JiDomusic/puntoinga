@@ -32,19 +32,19 @@ class _contactoState extends State<contacto> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Contacto Punto Rojo')),
+      appBar: AppBar(title: const Text('Punto Rojo')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               'Contacto y Consultas',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             const Text(
-              'Para consultas o información, podés comunicarte con nosotros a través de los siguientes medios:',
+              '',
               style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 30),
@@ -69,15 +69,7 @@ class _contactoState extends State<contacto> {
             ),
             const SizedBox(height: 20),
 
-            // Teléfono
-            ContactItem(
-              icon: Icons.phone,
-              color: Colors.green,
-              title: 'Teléfono',
-              subtitle: '+54 341 123 4567',
-              onTap: () => _launchUrl('tel:+543411234567'),
-            ),
-            const SizedBox(height: 20),
+
 
             // WhatsApp usando font_awesome_flutter
             ContactItem(

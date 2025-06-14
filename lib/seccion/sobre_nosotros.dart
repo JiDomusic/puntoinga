@@ -53,14 +53,6 @@ class sobrenosotros extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // LOGO
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            'assets/images/puntorojo.webp',
-                            height: isMobile ? 150 : 200,
-                            fit: BoxFit.contain,
-                          ),
-                        ).animate().fadeIn(duration: 1000.ms),
 
                         const SizedBox(height: 40),
 
@@ -69,13 +61,13 @@ class sobrenosotros extends StatelessWidget {
                           'Bienvenidos a Punto Rojo',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: isMobile ? 24 : 32,
+                            fontSize: isMobile ? 32 : 32,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.amber,
                           ),
                         ).animate().fadeIn().slideY(begin: 0.2, duration: 800.ms),
 
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 60),
 
                         // DESCRIPCIÓN
                         Text(
@@ -84,13 +76,13 @@ class sobrenosotros extends StatelessWidget {
 Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institucional, el Diseño gráfico y la comunicación visual, entre otros.""",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: isMobile ? 16 : 18,
-                            height: 1.6,
-                            color: Colors.white70,
+                            fontSize: isMobile ? 26: 17,
+                            height: 1.8,
+                            color: Colors.white,
                           ),
                         ).animate().fadeIn(delay: 400.ms, duration: 1000.ms),
 
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 300),
 
                         // BOTÓN
                         ElevatedButton.icon(

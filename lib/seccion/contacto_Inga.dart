@@ -8,10 +8,10 @@ class contacto_inga extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color rojo = Color(0xFFB71C1C);
+    const Color rojo = Color(0xFFF13333);
     const Color amarillo = Color(0xFFFFEB3B);
     const Color negro = Colors.black;
-    const Color verde = Color(0xFF1B5E20);
+    const Color verde = Color(0xFF69DD72);
 
     return Scaffold(
       backgroundColor: negro,
@@ -34,7 +34,7 @@ class contacto_inga extends StatelessWidget {
           // Imagen de fondo
           Positioned.fill(
             child: Opacity(
-              opacity: 0.50,
+              opacity: 0.20,
               child: Image.asset(
                 'assets/images/LOOOGOO.webp',
                 fit: BoxFit.cover,
@@ -43,7 +43,7 @@ class contacto_inga extends StatelessWidget {
           ),
           // Contenido principal
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(80),
             child: Column(
               children: [
                 const Text(
@@ -58,10 +58,10 @@ class contacto_inga extends StatelessWidget {
 
                 contactoItem(
                   icon: FontAwesomeIcons.instagram,
-                  label: '@inga.oficial',
+                  label: '@casainga.coop',
                   color: Colors.pinkAccent,
                   onTap: () async {
-                    final url = Uri.parse('https://www.instagram.com/inga.oficial');
+                    final url = Uri.parse('https://www.instagram.com/casainga.coop');
                     if (await canLaunchUrl(url)) {
                       await launchUrl(url, mode: LaunchMode.externalApplication);
                     }
