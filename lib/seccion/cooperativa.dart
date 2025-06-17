@@ -42,38 +42,37 @@ class _CooperativaState extends State<cooperativa>
       ),
       body: Stack(
         children: [
-          // 🌄 Imagen de fondo
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/fondoamarillo.webp"),
-                fit: BoxFit.cover,
+          // 🌄 Imagen de fondo visible en cualquier pantalla
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/fondoamarillo.webp",
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // 🟡 Degradado encima para contraste
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xCCF1BC0E), // Amarillo claro
+                    Color(0x7C000000), // Negro con opacidad
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
             ),
           ),
 
-          // 🟡 Degradado amarillo translúcido encima
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xCCF1BC0E), // Amarillo claro con opacidad
-                  Color(0x7C000000), // Negro con opacidad para contraste
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-
-          // 🌟 Contenido
+          // 🌟 Contenido principal con scroll
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // 🌀 Logo
                   Hero(
                     tag: 'logo-coop',
                     child: Image.asset(
@@ -91,10 +90,7 @@ class _CooperativaState extends State<cooperativa>
                         .then(delay: 2.seconds)
                         .shake(hz: 1, curve: Curves.easeOutCubic),
                   ),
-
                   const SizedBox(height: 40),
-
-                  // ✨ Título
                   Text(
                     '¡Bienvenidos a Cooperativa Inga!',
                     textAlign: TextAlign.center,
@@ -110,10 +106,7 @@ class _CooperativaState extends State<cooperativa>
                       .slide(begin: Offset(0, 0.3), duration: 800.ms)
                       .then(delay: 1.seconds)
                       .scaleXY(end: 1.02, curve: Curves.easeInOut, duration: 600.ms),
-
                   const SizedBox(height: 30),
-
-                  // 📣 Texto institucional
                   Container(
                     padding: const EdgeInsets.all(16),
                     margin: const EdgeInsets.only(bottom: 24),
@@ -135,8 +128,6 @@ class _CooperativaState extends State<cooperativa>
                       .animate()
                       .fadeIn(delay: 900.ms)
                       .slide(begin: Offset(0, 0.3)),
-
-                  // ✅ Valores
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -175,10 +166,7 @@ class _CooperativaState extends State<cooperativa>
                       .animate()
                       .fadeIn(delay: 1.seconds)
                       .slide(begin: Offset(0, 0.3)),
-
                   const SizedBox(height: 40),
-
-                  // 🚀 Botón
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.yellow[700],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart'; // Asegúrate de que HomeScreen esté correctamente importado
+import '../main.dart'; // Asegúrate que HomeScreen esté importado
 
 class galeria extends StatefulWidget {
   const galeria({Key? key}) : super(key: key);
@@ -30,8 +30,11 @@ class _galeriaState extends State<galeria> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    for (final path in imagePaths) {
-      precacheImage(AssetImage(path), context);
+
+    if (MediaQuery.of(context).size.width > 700) {
+      for (final path in imagePaths) {
+        precacheImage(AssetImage(path), context);
+      }
     }
   }
 
@@ -74,35 +77,45 @@ class _galeriaState extends State<galeria> {
                 crossAxisCount: crossAxisCount,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 1,
+                // Eliminamos childAspectRatio para que no fuerce proporciones
               ),
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
                     color: Colors.grey[900],
-                    child: Image.asset(
-                      imagePaths[index],
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                        if (wasSynchronouslyLoaded || frame != null) {
-                          return child;
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white70),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Image.asset(
+                          imagePaths[index],
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.low,
+
+                          // cacheHeight podría omitirse para respetar la proporción
+                          frameBuilder: (context, child, frame, wasSync) {
+                            if (wasSync || frame != null) {
+                              return child;
+                            }
+                            return const Center(
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white60),
+                                ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) => const Center(
+                            child: Icon(
+                              Icons.broken_image,
+                              color: Colors.white38,
+                              size: 40,
                             ),
-                          );
-                        }
+                          ),
+                        );
                       },
-                      errorBuilder: (context, error, stackTrace) => const Icon(
-                        Icons.broken_image,
-                        color: Colors.white38,
-                        size: 40,
-                      ),
                     ),
                   ),
                 );

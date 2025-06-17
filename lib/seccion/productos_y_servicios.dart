@@ -6,7 +6,6 @@ import 'dart:io';
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-
 class productosyservicios extends StatefulWidget {
   const productosyservicios({super.key});
 
@@ -124,17 +123,11 @@ class _ProductosYServiciosState extends State<productosyservicios> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Image.asset(
-                assetPath,
-                width: constraints.maxWidth,
-                height: constraints.maxHeight,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                const Center(child: Icon(Icons.broken_image, color: Colors.white)),
-              );
-            },
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) =>
+            const Center(child: Icon(Icons.broken_image, color: Colors.white)),
           ),
         ),
       ),
@@ -248,7 +241,11 @@ class _ProductosYServiciosState extends State<productosyservicios> {
             children: [
               buildLeftContent(screenWidth, screenHeight),
               const SizedBox(height: 24),
-              buildCarousel(screenWidth, screenHeight * 0.3, isMobile: true),
+              buildCarousel(
+                screenWidth * 0.9,
+                screenHeight * 0.4, // ajustado para móviles
+                isMobile: true,
+              ),
             ],
           ),
         ),
