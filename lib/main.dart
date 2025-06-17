@@ -245,7 +245,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               {'label': 'servicios especiales'},
                               {'label': 'contacto'},
                               {'label': 'audiovisuales'},
-
                             ],
                           ),
                         ),
@@ -305,7 +304,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     {'label': 'servicios especiales'},
                                     {'label': 'contacto'},
                                     {'label': 'audiovisuales'},
-
                                   ],
                                 ),
                               ),
@@ -336,6 +334,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ],
                   const SizedBox(height: 30),
                   animatedButton('Videos', () => _navigateTo(context, 'videos'), icon: Icons.video_library),
+
+                  /// ⬇️ Logo agregado de forma responsiva al final
+                  const SizedBox(height: 50),
+                  Center(
+                    child: Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Twinpines.svg/1024px-Twinpines.svg.png',
+                      height: 50,
+                    ),
+                  ),
                 ],
               ),
             ),
