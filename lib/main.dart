@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           screen = const contacto();
           break;
         case 'audiovisuales':
-          screen = const audiovisuales();
+          screen = const Audiovisuales();
           break;
 
         case 'cooperativa':
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           screen = const videos_page.Videos();
           break;
         default:
-          print('⚠️ Ruta no encontrada para "$title", mostrando Videos por defecto');
+          print('⚠️ Ruta no encontrada para "$title", mostrando videos por defecto');
           screen = const videos_page.Videos();
       }
 
@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           child: buildContent(
                             title: 'Punto Rojo',
-                            imagePath: 'assets/images/puntorojo2.webp',
+                            imagePath: 'assets/images/puntorojo.webp',
                             buttons: [
                               {'label': 'sobre nosotros'},
                               {'label': 'servicios especiales'},
@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           child: buildContent(
                             title: 'Cooperativa Inga',
-                            imagePath: 'assets/images/coopinga.png',
+                            imagePath: 'assets/images/LOOOGOO.webp',
                             buttons: [
                               {'label': 'cooperativa'},
                               {'label': 'quienes somos'},
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               opacity: _rightController,
                               child: buildContent(
                                 title: 'Cooperativa Inga',
-                                imagePath: 'assets/images/coopinga.png',
+                                imagePath: 'assets/images/LOOOGOO.webp',
                                 buttons: [
                                   {'label': 'cooperativa'},
                                   {'label': 'quienes somos'},

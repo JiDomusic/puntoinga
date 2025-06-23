@@ -1,323 +1,251 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class audiovisuales extends StatefulWidget {
-  const audiovisuales({super.key});
+class Audiovisuales extends StatefulWidget {
+  const Audiovisuales({super.key});
 
   @override
-  State<audiovisuales> createState() => _audiovisualesState();
+  State<Audiovisuales> createState() => _AudiovisualesState();
 }
 
-class _audiovisualesState extends State<audiovisuales> {
-  final PageController _pageController = PageController(viewportFraction: 1.0);
-  final List<Map<String, String>> imageData = [
+class _AudiovisualesState extends State<Audiovisuales> {
+  final List<Map<String, String>> videos = const [
     {
-      'image': 'assets/images/Placa para reel PR 001.webp',
-      'title': 'STREAMING PROFESIONAL MULTICÁMARA',
-      'description': ''
+      'url': 'https://www.youtube.com/embed/TOrvOPuQjw4',
+      'thumbnail': 'https://img.youtube.com/vi/TOrvOPuQjw4/0.jpg',
+      'title': 'Streaming Multicámara',
     },
     {
-      'image': 'assets/images/Placa para reel PR 002.webp',
-      'title': 'SERVICIO DE PRENSA Y COMUNICACIÓN INSTITUCIONAL',
-      'description': ''
+      'url': 'https://www.youtube.com/embed/qgYYpaEj-Mk',
+      'thumbnail': 'https://img.youtube.com/vi/qgYYpaEj-Mk/0.jpg',
+      'title': 'Comunicación Institucional',
     },
     {
-      'image': 'assets/images/Placa para reel PR 003.webp',
-      'title': 'TUTORIALES AUDIOVISUALES PARA REDES SOCIALES',
-      'description': ''
+      'url': 'https://www.youtube.com/embed/s3o4qo_S6H4',
+      'thumbnail': 'https://img.youtube.com/vi/s3o4qo_S6H4/0.jpg',
+      'title': 'Tutorial para redes',
     },
     {
-      'image': 'assets/images/Placa para reel PR 004.webp',
-      'title': 'Comunidad',
-      'description': 'Cultura que se comparte y se vive.'
+      'url': 'https://www.youtube.com/embed/gE-YKDZeUYE',
+      'thumbnail': 'https://img.youtube.com/vi/gE-YKDZeUYE/0.jpg',
+      'title': 'Detrás de escena',
     },
     {
-      'image': 'assets/images/Placa para reel PR 005.webp',
-      'title': 'Innovación',
-      'description': 'Creatividad y tecnología en acción.'
-    },
-    {
-      'image': 'assets/images/Placa para reel PR 006.webp',
-      'title': 'Pasión Audiovisual',
-      'description': 'Cada cuadro cuenta una historia.'
+      'url': 'https://www.youtube.com/embed/zoFoCf4OGOQ',
+      'thumbnail': 'https://img.youtube.com/vi/zoFoCf4OGOQ/0.jpg',
+      'title': 'Video adicional',
     },
   ];
 
-  final List<String> galleryImages = [
-    'assets/images/festitrapinga2.webp',
-    'assets/images/dillon.webp',
-    'assets/images/logostitulosinga.png',
-    'assets/images/CATA.png',
-    'assets/images/ofeliarojo2.png',
-    'assets/images/galeria.webp'
-  ];
-
-  int currentIndex = 0;
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _startAutoScroll();
-  }
-
-  void _startAutoScroll() {
-    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
-      if (_pageController.hasClients) {
-        int nextPage = (currentIndex + 1) % imageData.length;
-        _pageController.animateToPage(
-          nextPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _showImageFullscreen(String imagePath) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => FullscreenImagePage(imagePath: imagePath),
-      ),
-    );
-  }
+  String? currentVideoUrl;
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isMobile = screenWidth < 600;
 
-    final double carouselWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth;
-    final double galleryWidth = screenWidth > 1200 ? screenWidth * 0.30 : screenWidth;
+    // Configuración responsiva
+    final playerWidth = isMobile ? screenWidth * 0.9 : screenWidth * 0.5;
+    final playerHeight = isMobile ? playerWidth * 9 / 16 : screenHeight * 0.7;
+    final gridCrossAxisCount = isMobile ? 1 : 2;
+    final itemSpacing = isMobile ? 16.0 : 24.0;
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFB80821),
-        title: const Text(
-          'Nuestro Equipo Audiovisual',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Nuestro Equipo Audiovisual'),
         centerTitle: true,
+        backgroundColor: const Color(0xFFB80821),
       ),
-      body: SafeArea(
-        child: screenWidth > 1200
-            ? Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: carouselWidth,
-              height: screenHeight * 0.90,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: imageData.length,
-                onPageChanged: (index) {
-                  setState(() => currentIndex = index);
-                },
-                itemBuilder: (context, index) {
-                  final item = imageData[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(40.0),
-                    child: Card(
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.asset(
-                              item['image']!,
-                              fit: BoxFit.contain,
-                              width: double.infinity,
-                            ),
-                          ),
-                          Container(
-                            color: Colors.black.withOpacity(0.8),
-                            padding: const EdgeInsets.all(40),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item['title']!,
-                                  style: const TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 7),
-                                if (item['description']!.isNotEmpty)
-                                  Text(
-                                    item['description']!,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white70,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              width: galleryWidth,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: galleryImages.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 1,
-                  ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => _showImageFullscreen(galleryImages[index]),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(
-                          galleryImages[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        )
-            : ListView(
-          children: [
-            SizedBox(
-              height: screenHeight * 0.6,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: imageData.length,
-                onPageChanged: (index) {
-                  setState(() => currentIndex = index);
-                },
-                itemBuilder: (context, index) {
-                  final item = imageData[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-                    child: Card(
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.asset(
-                              item['image']!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
-                          ),
-                          Container(
-                            color: Colors.black.withOpacity(0.85),
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item['title']!,
-                                  style: const TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                if (item['description']!.isNotEmpty) ...[
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    item['description']!,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white70,
-                                    ),
-                                  ),
-                                ],
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: galleryImages.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => _showImageFullscreen(galleryImages[index]),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        galleryImages[index],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (isMobile) {
+              return _buildMobileLayout(
+                playerWidth: playerWidth,
+                playerHeight: playerHeight,
+                gridCrossAxisCount: gridCrossAxisCount,
+                itemSpacing: itemSpacing,
+              );
+            } else {
+              return _buildDesktopLayout(
+                playerWidth: playerWidth,
+                playerHeight: playerHeight,
+                gridCrossAxisCount: gridCrossAxisCount,
+                itemSpacing: itemSpacing,
+              );
+            }
+          },
         ),
       ),
     );
   }
-}
 
-class FullscreenImagePage extends StatelessWidget {
-  final String imagePath;
+  Widget _buildDesktopLayout({
+    required double playerWidth,
+    required double playerHeight,
+    required int gridCrossAxisCount,
+    required double itemSpacing,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Reproductor de video (lateral izquierdo)
+        if (currentVideoUrl != null)
+          Container(
+            width: playerWidth,
+            height: playerHeight,
+            margin: const EdgeInsets.only(right: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.black,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.red.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 8,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: WebViewWidget(
+                controller: WebViewController()
+                  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                  ..loadRequest(Uri.parse(currentVideoUrl!)),
+              ),
+            ),
+          ),
 
-  const FullscreenImagePage({super.key, required this.imagePath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.red[900],
-        title: const Text('Imagen'),
-      ),
-      body: Center(
-        child: InteractiveViewer(
-          child: Image.asset(imagePath, fit: BoxFit.contain),
+        // Lista de videos (lado derecho)
+        Expanded(
+          child: GridView.builder(
+            itemCount: videos.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridCrossAxisCount,
+              mainAxisSpacing: itemSpacing,
+              crossAxisSpacing: itemSpacing,
+              childAspectRatio: 16 / 11,
+            ),
+            itemBuilder: (context, index) {
+              final video = videos[index];
+              return _buildVideoItem(video);
+            },
+          ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildMobileLayout({
+    required double playerWidth,
+    required double playerHeight,
+    required int gridCrossAxisCount,
+    required double itemSpacing,
+  }) {
+    return Column(
+      children: [
+        // Reproductor de video (arriba)
+        if (currentVideoUrl != null)
+          Container(
+            width: playerWidth,
+            height: playerHeight,
+            margin: const EdgeInsets.only(bottom: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.black,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.red.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 8,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: WebViewWidget(
+                controller: WebViewController()
+                  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                  ..loadRequest(Uri.parse(currentVideoUrl!)),
+              ),
+            ),
+          ),
+
+        // Lista de videos (abajo)
+        Expanded(
+          child: GridView.builder(
+            itemCount: videos.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridCrossAxisCount,
+              mainAxisSpacing: itemSpacing,
+              crossAxisSpacing: itemSpacing,
+              childAspectRatio: 16 / 11,
+            ),
+            itemBuilder: (context, index) {
+              final video = videos[index];
+              return _buildVideoItem(video);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildVideoItem(Map<String, String> video) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          currentVideoUrl = video['url'];
+        });
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              video['thumbnail']!,
+              width: double.infinity,
+              height: 180,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[800],
+                  child: const Center(
+                    child: Icon(Icons.error, color: Colors.red),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            video['title']!,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }

@@ -5,10 +5,11 @@ class galeria extends StatefulWidget {
   const galeria({Key? key}) : super(key: key);
 
   @override
-  State<galeria> createState() => _galeriaState();
+  State<galeria> createState() => _GaleriaState();
 }
 
-class _galeriaState extends State<galeria> {
+class _GaleriaState extends State<galeria> {
+  // Lista actualizada de imágenes
   final List<String> imagePaths = [
     'assets/images/paya.webp',
     'assets/images/INGA77.webp',
@@ -25,13 +26,19 @@ class _galeriaState extends State<galeria> {
     'assets/images/filmpuntorojo.webp',
     'assets/images/cajaforenseinga.webp',
     'assets/images/puntorojo4.webp',
+    'assets/images/titulogaleria.png',
+    'assets/images/festitrapinga2.webp',
+    'assets/images/dillon.webp',
+    'assets/images/coopinga.png',
+    'assets/images/nuestroservicio.webp',
+    'assets/images/logostitulosinga.png',
   ];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    if (MediaQuery.of(context).size.width > 700) {
+    // Precaching optimizado para dispositivos antiguos
+    if (MediaQuery.of(context).size.width > 600) {
       for (final path in imagePaths) {
         precacheImage(AssetImage(path), context);
       }
@@ -51,7 +58,7 @@ class _galeriaState extends State<galeria> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const HomeScreen()),
+              MaterialPageRoute(builder: (_) => HomeScreen()), // Corregido: HomeScreen en lugar de galeria
             );
           },
         ),
@@ -59,69 +66,84 @@ class _galeriaState extends State<galeria> {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            int crossAxisCount = 2;
-            double width = constraints.maxWidth;
+            // Configuración responsiva mejorada para dispositivos antiguos
+            int crossAxisCount;
+            final width = constraints.maxWidth;
 
-            if (width >= 900) {
-              crossAxisCount = 5;
-            } else if (width >= 700) {
+            if (width > 900) {
               crossAxisCount = 4;
-            } else if (width >= 600) {
+            } else if (width > 700) {
               crossAxisCount = 3;
+            } else if (width > 500) {
+              crossAxisCount = 2;
+            } else {
+              crossAxisCount = 1; // Para dispositivos muy pequeños
             }
 
             return GridView.builder(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               itemCount: imagePaths.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: crossAxisCount,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                // Eliminamos childAspectRatio para que no fuerce proporciones
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1,
               ),
               itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    color: Colors.grey[900],
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        return Image.asset(
-                          imagePaths[index],
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.low,
-
-                          // cacheHeight podría omitirse para respetar la proporción
-                          frameBuilder: (context, child, frame, wasSync) {
-                            if (wasSync || frame != null) {
-                              return child;
-                            }
-                            return const Center(
-                              child: SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white60),
-                                ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) => const Center(
-                            child: Icon(
-                              Icons.broken_image,
-                              color: Colors.white38,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                );
+                return _buildImageItem(imagePaths[index]);
               },
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImageItem(String imagePath) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        color: Colors.grey[900],
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          filterQuality: FilterQuality.low,
+          frameBuilder: (context, child, frame, wasSync) {
+            if (wasSync || frame != null) {
+              return child;
+            }
+            return Center(
+              child: Container(
+                width: 30,
+                height: 30,
+                padding: const EdgeInsets.all(4),
+                child: const CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white60),
+                ),
+              ),
+            );
+          },
+          errorBuilder: (context, error, stackTrace) => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.broken_image,
+                  color: Colors.white38,
+                  size: 30,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Error al cargar',
+                  style: TextStyle(
+                    color: Colors.white38,
+                    fontSize: 10,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
