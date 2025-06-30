@@ -56,8 +56,8 @@ class _CooperativaState extends State<cooperativa>
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xCCF1BC0E), // Amarillo claro
-                    Color(0x7C000000), // Negro con opacidad
+                    Color(0xFFFDCB32), // Amarillo claro
+                    Color(0xA8F0012), // Negro con opacidad
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -76,7 +76,7 @@ class _CooperativaState extends State<cooperativa>
                   Hero(
                     tag: 'logo-coop',
                     child: Image.asset(
-                      'assets/images/coopinga.png',
+                      'assets/images/INGAALOGOOOOO.webp',
                       width: 200,
                       height: 200,
                     )

@@ -48,7 +48,7 @@ class quienessomos extends StatelessWidget {
                 children: [
                   // 🔆 LOGO
                   Image.asset(
-                    'assets/images/coopinga.png',
+                    'assets/images/INGAALOGOOOOO.webp',
                     width: 180,
                   ).animate().fadeIn(duration: 600.ms),
 

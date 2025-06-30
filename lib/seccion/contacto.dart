@@ -54,8 +54,8 @@ class _contactoState extends State<contacto> {
               icon: Icons.email,
               color: Colors.red,
               title: 'Correo Electrónico',
-              subtitle: 'puntorojo.rosario@gmail.com',
-              onTap: () => _launchUrl('mailto:puntorojo.rosario@gmail.com'),
+              subtitle: 'puntorojoproductora@gmail.com',
+              onTap: () => _launchUrl('mailto:puntorojoproductora@gmail.com'),
             ),
             const SizedBox(height: 20),
 
@@ -65,7 +65,7 @@ class _contactoState extends State<contacto> {
               color: Colors.purple,
               title: 'Instagram',
               subtitle: '@puntorojo.rosario',
-              onTap: () => _launchUrl('https://www.instagram.com/puntorojoproductora'),
+              onTap: () => _launchUrl('https://www.instagram.com/puntorojoproductora/'),
             ),
             const SizedBox(height: 20),
 
@@ -76,8 +76,8 @@ class _contactoState extends State<contacto> {
               iconData: FontAwesomeIcons.whatsapp,
               color: Colors.greenAccent.shade700,
               title: 'WhatsApp',
-              subtitle: '+54 9 341 987 6543',
-              onTap: () => _launchUrl('https://wa.me/5493419876543'),
+              subtitle: '+54 9 3412 02-0101',
+              onTap: () => _launchUrl('https://wa.me/+54 9 3412 02-0101'),
             ),
 
             const SizedBox(height: 40),

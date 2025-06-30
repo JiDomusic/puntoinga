@@ -8,7 +8,6 @@ class sobrenosotros extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -25,23 +24,21 @@ class sobrenosotros extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Imagen de fondo responsiva con protección por error
+          // Fondo de imagen adaptado para móviles
           Positioned.fill(
             child: Image.asset(
               'assets/images/nuestroservicio2.webp',
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               alignment: Alignment.center,
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.black.withOpacity(0.35),
               colorBlendMode: BlendMode.darken,
-
-
             ),
           ),
 
-          // Burbujas animadas
+          // Efecto de burbujas
           const AnimatedBubbles(),
 
-          // Contenido centrado y scrollable
+          // Contenido
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
@@ -52,11 +49,9 @@ class sobrenosotros extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // LOGO
-
                         const SizedBox(height: 40),
 
-                        // TÍTULO
+                        // Título
                         Text(
                           'Bienvenidos a Punto Rojo',
                           textAlign: TextAlign.center,
@@ -69,14 +64,14 @@ class sobrenosotros extends StatelessWidget {
 
                         const SizedBox(height: 60),
 
-                        // DESCRIPCIÓN
+                        // Descripción
                         Text(
                           """Punto Rojo es una productora de contenidos nacida del trabajo cooperativo de profesionales de las artes visuales, la literatura, el cine y la música, que ofrecemos servicios culturales.
 
 Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institucional, el Diseño gráfico y la comunicación visual, entre otros.""",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: isMobile ? 26: 17,
+                            fontSize: isMobile ? 20 : 17,
                             height: 1.8,
                             color: Colors.white,
                           ),
@@ -84,7 +79,7 @@ Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institu
 
                         const SizedBox(height: 300),
 
-                        // BOTÓN
+                        // Botón de volver
                         ElevatedButton.icon(
                           onPressed: () => Navigator.pop(context),
                           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -109,7 +104,7 @@ Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institu
   }
 }
 
-// Animación de burbujas
+// Efecto de burbujas animadas
 class AnimatedBubbles extends StatelessWidget {
   const AnimatedBubbles({super.key});
 

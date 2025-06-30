@@ -36,7 +36,7 @@ class contacto_inga extends StatelessWidget {
             child: Opacity(
               opacity: 0.20,
               child: Image.asset(
-                'assets/images/LOOOGOO.webp',
+                'assets/images/INGAALOGOOOOO.webp',
                 fit: BoxFit.cover,
               ),
             ),
@@ -71,10 +71,10 @@ class contacto_inga extends StatelessWidget {
 
                 contactoItem(
                   icon: FontAwesomeIcons.whatsapp,
-                  label: '+57 300 123 4567',
+                  label: '+54 9 3416 96-9260',
                   color: verde,
                   onTap: () async {
-                    final url = Uri.parse('https://wa.me/573001234567');
+                    final url = Uri.parse('https://wa.me/+54 9 3416 96-9260');
                     if (await canLaunchUrl(url)) {
                       await launchUrl(url, mode: LaunchMode.externalApplication);
                     }
@@ -84,10 +84,10 @@ class contacto_inga extends StatelessWidget {
 
                 contactoItem(
                   icon: Icons.phone,
-                  label: '(601) 123 4567',
+                  label: '+54 9 3416 96-9260',
                   color: amarillo,
                   onTap: () async {
-                    final url = Uri.parse('tel:6011234567');
+                    final url = Uri.parse('tel:+54 9 3416 96-9260');
                     if (await canLaunchUrl(url)) {
                       await launchUrl(url);
                     }
