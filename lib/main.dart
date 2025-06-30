@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           child: buildContent(
                             title: 'Cooperativa Inga',
-                            imagePath: 'assets/images/LOOOGOO.webp',
+                            imagePath: 'assets/images/INGAALOGOOOOO.webp',
                             buttons: [
                               {'label': 'cooperativa'},
                               {'label': 'quienes somos'},
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               opacity: _rightController,
                               child: buildContent(
                                 title: 'Cooperativa Inga',
-                                imagePath: 'assets/images/LOOOGOO.webp',
+                                imagePath: 'assets/images/INGAALOGOOOOO.webp',
                                 buttons: [
                                   {'label': 'cooperativa'},
                                   {'label': 'quienes somos'},
