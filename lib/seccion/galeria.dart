@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../main.dart'; // Asegúrate de tener esta importación
 
 class galeria extends StatelessWidget {
-  const galeria({Key? key}) : super(key: key);
+   galeria({Key? key}) : super(key: key);
 
   final List<String> imagenes = [
     'assets/images/paya.webp',
