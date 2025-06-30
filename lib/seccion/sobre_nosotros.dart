@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -7,7 +6,8 @@ class sobrenosotros extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 600;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -24,19 +24,16 @@ class sobrenosotros extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Fondo de imagen adaptado para móviles
+          // Imagen de fondo adaptable a web y móviles
           Positioned.fill(
             child: Image.asset(
               'assets/images/INGAL.webp',
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              color: Colors.black.withOpacity(0.35),
+              fit: isMobile ? BoxFit.cover : BoxFit.contain,
+              alignment: Alignment.topCenter,
+              color: Colors.cyan.withOpacity(0.35),
               colorBlendMode: BlendMode.darken,
             ),
           ),
-
-          // Efecto de burbujas
-          const AnimatedBubbles(),
 
           // Contenido
           SingleChildScrollView(
@@ -56,7 +53,7 @@ class sobrenosotros extends StatelessWidget {
                           'Bienvenidos a Punto Rojo',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: isMobile ? 32 : 32,
+                            fontSize: isMobile ? 28 : 36,
                             fontWeight: FontWeight.bold,
                             color: Colors.amber,
                           ),
@@ -71,7 +68,7 @@ class sobrenosotros extends StatelessWidget {
 Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institucional, el Diseño gráfico y la comunicación visual, entre otros.""",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: isMobile ? 20 : 17,
+                            fontSize: isMobile ? 18 : 20,
                             height: 1.8,
                             color: Colors.white,
                           ),
@@ -87,7 +84,7 @@ Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institu
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: Colors.black,
-                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 45),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                           ),
                         ).animate().fadeIn(delay: 800.ms),
@@ -101,44 +98,5 @@ Nos dedicamos a la Producción Audiovisual; la Prensa y la Comunicación institu
         ],
       ),
     );
-  }
-}
-
-// Efecto de burbujas animadas
-class AnimatedBubbles extends StatelessWidget {
-  const AnimatedBubbles({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final random = Random();
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    final bubbles = List.generate(12, (index) {
-      final left = random.nextDouble() * screenWidth;
-      final delay = Duration(milliseconds: random.nextInt(3000));
-
-      return Positioned(
-        left: left,
-        bottom: -40,
-        child: Container(
-          width: 20 + random.nextDouble() * 20,
-          height: 20 + random.nextDouble() * 20,
-          decoration: const BoxDecoration(
-            color: Colors.white12,
-            shape: BoxShape.circle,
-          ),
-        )
-            .animate(onPlay: (controller) => controller.repeat())
-            .moveY(
-          begin: 600,
-          end: -100,
-          duration: 8000.ms + delay,
-          curve: Curves.easeInOut,
-        )
-            .fadeIn(duration: 2000.ms),
-      );
-    });
-
-    return SizedBox.expand(child: Stack(children: bubbles));
   }
 }
