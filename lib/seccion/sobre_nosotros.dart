@@ -27,7 +27,7 @@ class sobrenosotros extends StatelessWidget {
           // Fondo de imagen adaptado para móviles
           Positioned.fill(
             child: Image.asset(
-              'assets/images/nuestroservicio2.webp',
+              'assets/images/INGAL.webp',
               fit: BoxFit.cover,
               alignment: Alignment.center,
               color: Colors.black.withOpacity(0.35),

@@ -49,7 +49,7 @@ class quienessomos extends StatelessWidget {
                   // 🔆 LOGO
                   Image.asset(
                     'assets/images/INGAALOGOOOOO.webp',
-                    width: 180,
+                    width: 100,
                   ).animate().fadeIn(duration: 600.ms),
 
                   const SizedBox(height: 30),

@@ -46,7 +46,7 @@ class _CooperativaState extends State<cooperativa>
           Positioned.fill(
             child: Image.asset(
               "assets/images/fondoamarillo.webp",
-              fit: BoxFit.cover,
+              fit: BoxFit.scaleDown,
             ),
           ),
 
