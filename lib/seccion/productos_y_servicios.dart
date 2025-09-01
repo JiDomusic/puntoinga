@@ -21,7 +21,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
 
   final List<String> carouselImages = [
     'assets/images/COOP INGA_Marca_#001_CMYK_01[Export-CS4]-1_dorado.png',
-    'assets/images/puntorojo3.png',
+    'assets/images/puntorojo.webp',
   ];
 
   @override
@@ -125,7 +125,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
           borderRadius: BorderRadius.circular(12),
           child: Image.asset(
             assetPath,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) =>
             const Center(child: Icon(Icons.broken_image, color: Colors.white)),
           ),
@@ -153,7 +153,7 @@ class _ProductosYServiciosState extends State<productosyservicios> {
 
   Widget buildLeftContent(double screenWidth, double screenHeight) {
     final bool isMobile = screenWidth < 600;
-    final double containerHeight = isMobile ? screenHeight * 0.6 : screenHeight * 0.9;
+    final double containerHeight = isMobile ? 350 : screenHeight * 0.9;
 
     return Container(
       constraints: BoxConstraints(
@@ -162,11 +162,6 @@ class _ProductosYServiciosState extends State<productosyservicios> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        image: const DecorationImage(
-          image: AssetImage('assets/images/fondo_texto.webp'),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.5),
@@ -175,23 +170,54 @@ class _ProductosYServiciosState extends State<productosyservicios> {
           ),
         ],
       ),
-      padding: const EdgeInsets.all(24),
-      child: Center(
-        child: DefaultTextStyle(
-          style: TextStyle(
-            fontSize: screenWidth > 800 ? 20 : 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-          ),
-          child: AnimatedTextKit(
-            repeatForever: true,
-            animatedTexts: [
-              TyperAnimatedText(
-                "Nuestra cooperativa se dedica a la producción, realización y postproducción de piezas audiovisuales publicitarias y de difusión y a la creación de contenido audiovisual para redes sociales. También el diseño gráfico, el diseño web, la fotografía y la comunicación en general, son parte de los productos y servicios que brindamos.",
-                speed: Duration(milliseconds: 40),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/fondo_texto.webp',
+                fit: BoxFit.cover,
+                cacheWidth: 1200,
+                cacheHeight: 800,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xFF2A2A2A), Color(0xFF1A1A1A)],
+                      ),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.54),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: screenWidth > 800 ? 20 : 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+                child: AnimatedTextKit(
+                  repeatForever: true,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      "Nuestra cooperativa se dedica a la producción, realización y postproducción de piezas audiovisuales publicitarias y de difusión y a la creación de contenido audiovisual para redes sociales. También el diseño gráfico, el diseño web, la fotografía y la comunicación en general, son parte de los productos y servicios que brindamos.",
+                      speed: Duration(milliseconds: 40),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -236,15 +262,22 @@ class _ProductosYServiciosState extends State<productosyservicios> {
           backgroundColor: Colors.red[900],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             children: [
-              buildLeftContent(screenWidth, screenHeight),
-              const SizedBox(height: 24),
-              buildCarousel(
-                screenWidth * 0.9,
-                screenHeight * 0.4, // ajustado para móviles
-                isMobile: true,
+              SizedBox(
+                width: double.infinity,
+                child: buildLeftContent(screenWidth, screenHeight),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                height: 250,
+                child: buildCarousel(
+                  screenWidth,
+                  250,
+                  isMobile: true,
+                ),
               ),
             ],
           ),

@@ -46,7 +46,20 @@ class _CooperativaState extends State<cooperativa>
           Positioned.fill(
             child: Image.asset(
               "assets/images/fondoamarillo.webp",
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.cover,
+              cacheWidth: 1200,
+              cacheHeight: 800,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFFFFC107), Color(0xFFFF8F00)],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
 
