@@ -107,6 +107,9 @@ class galeria extends StatelessWidget {
               childAspectRatio: getChildAspectRatio(),
             ),
             itemBuilder: (context, index) {
+              if (index >= imagenes.length || imagenes[index].isEmpty) {
+                return const SizedBox.shrink();
+              }
               return GestureDetector(
                 onTap: () => _showImageDialog(context, imagenes[index], index),
                 child: Hero(
@@ -143,11 +146,12 @@ class galeria extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: Stack(
                         children: [
-                          Image.asset(
-                            imagenes[index],
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
+                          imagenes[index].isNotEmpty
+                              ? Image.asset(
+                                  imagenes[index],
+                                  fit: screenWidth < 600 ? BoxFit.contain : BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 decoration: BoxDecoration(
@@ -184,7 +188,26 @@ class galeria extends StatelessWidget {
                                 ),
                               );
                             },
-                          ),
+                          )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        const Color(0xFFE53E3E),
+                                        const Color(0xFFC53030),
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.image_not_supported,
+                                      color: Colors.white,
+                                      size: 48,
+                                    ),
+                                  ),
+                                ),
                           Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -237,6 +260,7 @@ class galeria extends StatelessWidget {
   }
 
   void _showImageDialog(BuildContext context, String imagePath, int index) {
+    if (imagePath.isEmpty) return;
     showDialog(
       context: context,
       barrierColor: Colors.black87,
