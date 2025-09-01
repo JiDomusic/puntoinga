@@ -29,6 +29,19 @@ class quienessomos extends StatelessWidget {
             child: Image.asset(
               'assets/images/cooperativa2.webp',
               fit: BoxFit.cover,
+              cacheWidth: 1200,
+              cacheHeight: 800,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFF1A1A1A), Color(0xFF0A0A0A)],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
 
